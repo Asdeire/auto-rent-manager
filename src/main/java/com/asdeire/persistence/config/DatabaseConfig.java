@@ -1,4 +1,4 @@
-package com.asdeire.config;
+package com.asdeire.persistence.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
