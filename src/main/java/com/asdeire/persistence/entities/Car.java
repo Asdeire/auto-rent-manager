@@ -22,14 +22,15 @@ public record Car(int id, String brand, String model, int year, int categoryId, 
 
 
     public String getModel() {
-    return model;
+        return model;
     }
 
     public int getYear() {
-    return year;
+        return year;
     }
 
-    public int getCategoryID() {
-   return categoryId;
+    public int getCategoryId() {
+        return categoryId;
     }
+
 }

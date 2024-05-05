@@ -19,14 +19,15 @@ public record Review(int id, int userId, int carId, double rating, String commen
     }
 
     public String getComment() {
-    return comment;
+        return comment;
     }
 
     public String getDate() {
-    return date.toString();
+        return date.toString();
     }
 
     public int getId() {
-    return id;
+        return id;
     }
+
 }
