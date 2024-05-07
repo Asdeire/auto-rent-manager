@@ -1,6 +1,6 @@
-package com.asdeire.persistence.repository;
+package com.asdeire.persistence.repository.impl;
 
-import com.asdeire.persistence.entities.Review;
+import com.asdeire.persistence.entities.Car;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -8,33 +8,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ReviewRepository {
+public class CarRepository {
     private DataSource dataSource;
 
-    public ReviewRepository(DataSource dataSource) {
+    public CarRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public Review findById(int id) {
-        Review review = null;
+    public Car findById(int id) {
+        Car car = null;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Review WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Car WHERE id = ?")) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    review = new Review(
+                    car = new Car(
                             resultSet.getInt("id"),
-                            resultSet.getInt("userId"),
-                            resultSet.getInt("carId"),
+                            resultSet.getString("brand"),
+                            resultSet.getString("model"),
+                            resultSet.getInt("year"),
+                            resultSet.getInt("categoryId"),
                             resultSet.getDouble("rating"),
-                            resultSet.getString("comment"),
-                            resultSet.getDate("date")
+                            resultSet.getBoolean("availability")
                     );
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return review;
+        return car;
     }
 }

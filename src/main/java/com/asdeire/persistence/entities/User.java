@@ -2,7 +2,10 @@ package com.asdeire.persistence.entities;
 
 import com.asdeire.persistence.entities.impl.Entity;
 
-public record User(int id, String username, String email, String password, double balance) implements Entity {
+import java.util.UUID;
+
+public record User(UUID id, String username, String email, String password, double balance)  {
+
     public String getUsername() {
         return username;
     }
@@ -18,7 +21,7 @@ public record User(int id, String username, String email, String password, doubl
         return balance;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 }
