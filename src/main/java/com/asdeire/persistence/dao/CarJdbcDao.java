@@ -107,5 +107,55 @@ public class CarJdbcDao {
         return cars;
     }
 
+    public List<Car> findCarsByCategory(String category) {
+        List<Car> cars = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cars WHERE category = ?")) {
+            statement.setString(1, category);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Car car = new Car(
+                            resultSet.getInt("id"),
+                            resultSet.getString("brand"),
+                            resultSet.getString("model"),
+                            resultSet.getInt("year"),
+                            resultSet.getInt("category_id"),
+                            resultSet.getDouble("rating"),
+                            resultSet.getBoolean("availability")
+                    );
+                    cars.add(car);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
+    }
+
+    public List<Car> findCarsByBrand(String brand) {
+        List<Car> cars = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cars WHERE brand = ?")) {
+            statement.setString(1, brand);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Car car = new Car(
+                            resultSet.getInt("id"),
+                            resultSet.getString("brand"),
+                            resultSet.getString("model"),
+                            resultSet.getInt("year"),
+                            resultSet.getInt("category_id"),
+                            resultSet.getDouble("rating"),
+                            resultSet.getBoolean("availability")
+                    );
+                    cars.add(car);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
+    }
+
 }
 
