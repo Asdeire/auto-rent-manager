@@ -30,7 +30,7 @@ public class CarJdbcDao {
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),
-                            resultSet.getInt("categoryID"),
+                            (UUID) resultSet.getObject("categoryID"),
                             resultSet.getDouble("rating"),
                             resultSet.getBoolean("availability")
                     );
@@ -48,7 +48,7 @@ public class CarJdbcDao {
             statement.setString(1, car.getBrand());
             statement.setString(2, car.getModel());
             statement.setInt(3, car.getYear());
-            statement.setInt(4, car.getCategoryId());
+            statement.setObject(4, car.getCategoryId());
             statement.setDouble(5, car.getRating());
             statement.setBoolean(6, car.isAvailability());
             statement.executeUpdate();
@@ -63,7 +63,7 @@ public class CarJdbcDao {
             statement.setString(1, car.getBrand());
             statement.setString(2, car.getModel());
             statement.setInt(3, car.getYear());
-            statement.setInt(4, car.getCategoryId());
+            statement.setObject(4, car.getCategoryId());
             statement.setDouble(5, car.getRating());
             statement.setBoolean(6, car.isAvailability());
             statement.setObject(7, car.getId());
@@ -96,7 +96,7 @@ public class CarJdbcDao {
                 String brand = resultSet.getString("brand");
                 String model = resultSet.getString("model");
                 int year = resultSet.getInt("year");
-                int categoryId = resultSet.getInt("categoryId");
+                UUID categoryId = (UUID) resultSet.getObject("categoryId");
                 double rating = resultSet.getDouble("rating");
                 boolean availability = resultSet.getBoolean("availability");
 
@@ -121,7 +121,7 @@ public class CarJdbcDao {
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),
-                            resultSet.getInt("category_id"),
+                            (UUID) resultSet.getObject("category_id"),
                             resultSet.getDouble("rating"),
                             resultSet.getBoolean("availability")
                     );
@@ -146,7 +146,7 @@ public class CarJdbcDao {
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),
-                            resultSet.getInt("category_id"),
+                            (UUID) resultSet.getObject("category_id"),
                             resultSet.getDouble("rating"),
                             resultSet.getBoolean("availability")
                     );

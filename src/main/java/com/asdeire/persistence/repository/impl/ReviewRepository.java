@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class ReviewRepository {
     private DataSource dataSource;
@@ -15,17 +16,17 @@ public class ReviewRepository {
         this.dataSource = dataSource;
     }
 
-    public Review findById(int id) {
+    public Review findById(UUID id) {
         Review review = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Review WHERE id = ?")) {
-            statement.setInt(1, id);
+            statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     review = new Review(
-                            resultSet.getInt("id"),
-                            resultSet.getInt("userId"),
-                            resultSet.getInt("carId"),
+                            (UUID) resultSet.getObject("id"),
+                            (UUID) resultSet.getObject("userId"),
+                            (UUID) resultSet.getObject("carId"),
                             resultSet.getDouble("rating"),
                             resultSet.getString("comment"),
                             resultSet.getDate("date")

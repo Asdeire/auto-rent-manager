@@ -2,7 +2,9 @@ package com.asdeire.persistence.entities;
 
 import com.asdeire.persistence.entities.impl.Entity;
 
-public record Category(int id, String name, String description)  {
+import java.util.UUID;
+
+public record Category(UUID id, String name, String description)  {
     public String getName() {
         return name;
     }
@@ -12,7 +14,7 @@ public record Category(int id, String name, String description)  {
         return description;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 }

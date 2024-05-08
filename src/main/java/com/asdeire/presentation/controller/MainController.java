@@ -28,7 +28,7 @@ public class MainController {
     @FXML
     private PasswordField passwordField;
     @FXML
-    private TextField balanceField;
+    private Label balanceLabel;
 
 
     private UserViewModel userViewModel;
@@ -39,9 +39,9 @@ public class MainController {
         // Створення користувача з пустими даними як приклад
         userViewModel = new UserViewModel(
                 UUID.randomUUID(),
-                "JohnDoe",
-                "john.doe@example.com",
-                "password123",
+                "DashaAst",
+                "dast@example.com",
+                "password2123",
                 20000.00
         );
 
@@ -54,6 +54,7 @@ public class MainController {
         usernameField.textProperty().bindBidirectional(userViewModel.usernameProperty());
         emailField.textProperty().bindBidirectional(userViewModel.emailProperty());
         passwordField.textProperty().bindBidirectional(userViewModel.passwordProperty());
+        balanceLabel.setText(userViewModel.getBalance().toString());
     }
 
     @FXML
@@ -72,7 +73,10 @@ public class MainController {
                 userViewModel.getEmail(),
                 userViewModel.getPassword()
         );
+
+
         userService.create(userStoreDto);
+
     }
 
     @FXML

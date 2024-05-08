@@ -28,7 +28,7 @@ public class CarRepository {
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),
-                            resultSet.getInt("categoryId"),
+                            (UUID) resultSet.getObject("categoryId"),
                             resultSet.getDouble("rating"),
                             resultSet.getBoolean("availability")
                     );

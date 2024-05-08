@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class CategoryRepository {
     private DataSource dataSource;
@@ -23,7 +24,7 @@ public class CategoryRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     category = new Category(
-                            resultSet.getInt("id"),
+                            (UUID) resultSet.getObject("id"),
                             resultSet.getString("name"),
                             resultSet.getString("description")
                     );

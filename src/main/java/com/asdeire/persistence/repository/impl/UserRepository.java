@@ -62,7 +62,7 @@ public class UserRepository {
         return Optional.empty();
     }
     public void add(User user) {
-        String sql = "INSERT INTO Users (id, username, email, password, balance, role) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (user_id, username, email, password, balance) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setObject(1, user.getId());

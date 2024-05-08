@@ -6,12 +6,23 @@ import com.asdeire.persistence.entities.User;
 import com.asdeire.persistence.repository.impl.UserRepository;
 import com.password4j.Password;
 import jakarta.validation.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UserService {
-    private Validator validator;
-    private UserRepository userRepository;
+
+    private final Validator validator;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public UserService(Validator validator, UserRepository userRepository) {
+        this.validator = validator;
+        this.userRepository = userRepository;
+    }
+
     public User create(UserStoreDto userStoreDto) {
         var violations = validator.validate(userStoreDto);
         if (!violations.isEmpty()) {
@@ -19,14 +30,18 @@ public class UserService {
         }
 
         User user = new User(
-                null,
+                UUID.randomUUID(),
                 userStoreDto.username(),
                 userStoreDto.email(),
                 Password.hash(userStoreDto.password()).withBcrypt().getResult(),
-                100000.00
+                20000.00
         );
 
-        userRepository.add(user);
-return user;
+
+            userRepository.add(user);
+
+
+
+        return user;
     }
 }

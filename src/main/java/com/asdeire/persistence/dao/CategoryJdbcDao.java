@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
+
 import com.asdeire.persistence.entities.Category;
 
 public class CategoryJdbcDao {
@@ -14,15 +16,15 @@ public class CategoryJdbcDao {
         this.dataSource = dataSource;
     }
 
-    public Category findById(int id) {
+    public Category findById(UUID id) {
         String sql = "SELECT * FROM Category WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return new Category(
-                            resultSet.getInt("id"),
+                            (UUID) resultSet.getObject("id"),
                             resultSet.getString("name"),
                             resultSet.getString("description")
                     );
@@ -52,18 +54,18 @@ public class CategoryJdbcDao {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, category.getName());
             statement.setString(2, category.getDescription());
-            statement.setInt(3, category.getId());
+            statement.setObject(3, category.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(int id) {
+    public void delete(UUID id) {
         String sql = "DELETE FROM Category WHERE id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, id);
+            statement.setObject(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -3,14 +3,15 @@ package com.asdeire.persistence.entities;
 import com.asdeire.persistence.entities.impl.Entity;
 
 import java.util.Date;
+import java.util.UUID;
 
-public record Review(int id, int userId, int carId, double rating, String comment,
+public record Review(UUID id, UUID userId, UUID carId, double rating, String comment,
                      Date date)  {
-    public int getUserID() {
+    public UUID getUserID() {
         return userId;
     }
 
-    public int getCarID() {
+    public UUID getCarID() {
         return carId;
     }
 
@@ -26,7 +27,7 @@ public record Review(int id, int userId, int carId, double rating, String commen
         return date.toString();
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 

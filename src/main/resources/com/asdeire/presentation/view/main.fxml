@@ -15,6 +15,10 @@
             <Label fx:id="idLabel" />
         </HBox>
         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="ID:" />
+            <Label fx:id="balanceLabel" />
+        </HBox>
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
             <Label text="Username:" />
             <TextField fx:id="usernameField" />
         </HBox>

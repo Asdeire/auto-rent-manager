@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -43,7 +44,7 @@ public class CategoryDaoIntegrationTest {
 
     @Test
     void testCreateCategory() {
-        Category category = new Category(1, "Test Category", "Test Description");
+        Category category = new Category(UUID.randomUUID(), "Test Category", "Test Description");
         categoryDao.create(category);
         Category savedCategory = categoryDao.findById(category.getId());
         assertNotNull(savedCategory);
@@ -53,7 +54,7 @@ public class CategoryDaoIntegrationTest {
 
     @Test
     void testUpdateCategory() {
-        Category category = new Category(1, "Test Category", "Test Description");
+        Category category = new Category(UUID.randomUUID(), "Test Category", "Test Description");
         categoryDao.create(category);
         Category updatedCategory = new Category(category.getId(), "Updated Test Category", "Updated Test Description");
         categoryDao.update(updatedCategory);
@@ -65,7 +66,7 @@ public class CategoryDaoIntegrationTest {
 
     @Test
     void testDeleteCategory() {
-        Category category = new Category(1, "Test Category", "Test Description");
+        Category category = new Category(UUID.randomUUID(), "Test Category", "Test Description");
         categoryDao.create(category);
         categoryDao.delete(category.getId());
         Category deletedCategory = categoryDao.findById(category.getId());

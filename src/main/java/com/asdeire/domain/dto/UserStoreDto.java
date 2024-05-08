@@ -2,9 +2,7 @@ package com.asdeire.domain.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
-
 
 
 public record UserStoreDto(
@@ -20,6 +18,7 @@ public record UserStoreDto(
         @NotBlank(message = "Пароль не може бути порожнім")
         @Size(min = 8, max = 72, message = "Пароль повинен містити від 8 до 72 символів")
         String password
+
 ) {
 
 }
