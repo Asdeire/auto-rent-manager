@@ -1,6 +1,6 @@
-INSERT INTO users (username, email, password, balance)
-VALUES ('JohnDoe', 'john.doe@example.com', 'securepassword123', 100.00),
-       ('JaneDoe', 'jane.doe@example.com', 'anothersecurepassword456', 150.00);
+/*INSERT INTO users (username, email, password, balance)
+VALUES ('JohnDoe', 'johnad.doe@example.com', 'securepassword123', 100.00),
+       ('JaneDoe', 'janet.doe@example.com', 'anothersecurepassword456', 150.00);
 
 INSERT INTO categories (name, description)
 VALUES ('Economy', 'Economy class cars suitable for routine city driving'),
@@ -16,4 +16,4 @@ VALUES ((SELECT user_id FROM users WHERE username = 'JohnDoe'), (SELECT car_id F
 
 INSERT INTO reviews (user_id, car_id, rating, comment, review_date)
 VALUES ((SELECT user_id FROM users WHERE username = 'JohnDoe'), (SELECT car_id FROM cars WHERE model = 'Corolla'), 4.5,
-        'Great experience, will rent again!', '2021-06-11');
+        'Great experience, will rent again!', '2021-06-11');*/

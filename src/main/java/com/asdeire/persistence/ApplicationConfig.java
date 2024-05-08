@@ -1,20 +1,23 @@
 package com.asdeire.persistence;
 
+
+import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
-import jakarta.mail.Authenticator;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
-import java.util.Properties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import java.util.Properties;
+
+
 @Configuration
-@ComponentScan("com.asdeire.persistence")
+@ComponentScan("com.asdeire")
 @PropertySource("classpath:application.properties")
 public class ApplicationConfig {
 

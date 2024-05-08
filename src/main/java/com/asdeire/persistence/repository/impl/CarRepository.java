@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class CarRepository {
     private DataSource dataSource;
@@ -23,7 +24,7 @@ public class CarRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     car = new Car(
-                            resultSet.getInt("id"),
+                            (UUID) resultSet.getObject("id"),
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),

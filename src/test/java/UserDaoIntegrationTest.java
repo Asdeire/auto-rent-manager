@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +21,7 @@ public class UserDaoIntegrationTest {
 
     @BeforeEach
     void init() {
-        dataSource = DatabaseConfig.getDataSource();
+
         userDao = new UserJdbcDao(dataSource);
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
@@ -42,7 +43,7 @@ public class UserDaoIntegrationTest {
 
     @Test
     void testCreateAndGetUser() {
-        User user = new User(1, "john_doe", "john@example.com", "password", 100.0);
+        User user = new User(UUID.randomUUID(), "john_doe", "john@example.com", "password", 100.0);
         userDao.create(user);
 
         // Check database data after inserting a user
@@ -57,7 +58,7 @@ public class UserDaoIntegrationTest {
 
     @Test
     void testUpdateUser() {
-        User user = new User(1,"jane_doe", "jane@example.com", "password", 200.0);
+        User user = new User(UUID.randomUUID(),"jane_doe", "jane@example.com", "password", 200.0);
         userDao.create(user);
 
         // Update user data
@@ -76,7 +77,7 @@ public class UserDaoIntegrationTest {
 
     @Test
     void testDeleteUser() {
-        User user = new User(1,"test_user", "test@example.com", "password", 300.0);
+        User user = new User(UUID.randomUUID(),"test_user", "test@example.com", "password", 300.0);
         userDao.create(user);
 
         // Delete the user

@@ -1,6 +1,7 @@
 package com.asdeire.persistence.repository.impl;
 
 import com.asdeire.persistence.entities.User;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class UserRepository {
     private DataSource dataSource;
 

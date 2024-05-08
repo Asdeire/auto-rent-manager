@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +21,6 @@ public class CarDaoIntegrationTest {
 
     @BeforeEach
     void init() {
-        dataSource = DatabaseConfig.getDataSource();
         carDao = new CarJdbcDao(dataSource);
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
@@ -42,7 +42,7 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testCreateAndGetCar() {
-        Car car = new Car(1, "Toyota", "Camry", 2022, 1, 4.5, true);
+        Car car = new Car(null, "Toyota", "Camry", 2022, 1, 4.5, true);
         carDao.create(car);
         Car retrievedCar = carDao.findById(car.getId());
         assertNotNull(retrievedCar);
@@ -56,7 +56,7 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testUpdateCar() {
-        Car car = new Car(1, "Honda", "Accord", 2020, 2, 4.3, false);
+        Car car = new Car(UUID.randomUUID(), "Honda", "Accord", 2020, 2, 4.3, false);
         carDao.create(car);
 
         Car updatedCar = new Car(car.getId(), car.getBrand(), "Civic", car.getYear(), car.getCategoryId(), car.getRating(), car.isAvailability());
@@ -75,7 +75,7 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testDeleteCar() {
-        Car car = new Car(1, "Ford", "Focus", 2018, 3, 4.0, true);
+        Car car = new Car(UUID.randomUUID(), "Ford", "Focus", 2018, 3, 4.0, true);
         carDao.create(car);
         carDao.delete(car.getId());
         Car retrievedCar = carDao.findById(car.getId());
@@ -84,8 +84,8 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testGetAllCars() {
-        Car car1 = new Car(1, "Toyota", "Camry", 2021, 1, 4.2, true);
-        Car car2 = new Car(2, "Honda", "Accord", 2019, 2, 4.4, false);
+        Car car1 = new Car(UUID.randomUUID(), "Toyota", "Camry", 2021, 1, 4.2, true);
+        Car car2 = new Car(UUID.randomUUID(), "Honda", "Accord", 2019, 2, 4.4, false);
         carDao.create(car1);
         carDao.create(car2);
         List<Car> cars = carDao.getAll();

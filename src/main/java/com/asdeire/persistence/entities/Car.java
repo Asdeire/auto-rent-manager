@@ -2,13 +2,15 @@ package com.asdeire.persistence.entities;
 
 import com.asdeire.persistence.entities.impl.Entity;
 
-public record Car(int id, String brand, String model, int year, int categoryId, Double rating,
+import java.util.UUID;
+
+public record Car(UUID id, String brand, String model, int year, int categoryId, Double rating,
                   Boolean availability) implements Entity {
     public String getBrand() {
         return brand;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 

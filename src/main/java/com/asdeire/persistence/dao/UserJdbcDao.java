@@ -3,6 +3,7 @@ package com.asdeire.persistence.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.sql.DataSource;
 import com.asdeire.persistence.entities.User;
 
@@ -13,15 +14,15 @@ public class UserJdbcDao {
         this.dataSource = dataSource;
     }
 
-    public User findById(int id) {
+    public User findById(UUID id) {
         User user = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE id = ?")) {
-            statement.setInt(1, id);
+            statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new User(
-                            resultSet.getInt("id"),
+                            (UUID) resultSet.getObject("id"),
                             resultSet.getString("username"),
                             resultSet.getString("email"),
                             resultSet.getString("password"),
@@ -55,17 +56,17 @@ public class UserJdbcDao {
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
             statement.setDouble(4, user.getBalance());
-            statement.setInt(5, user.getId());
+            statement.setObject(5, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(int id) {
+    public void delete(UUID id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM Users WHERE id = ?")) {
-            statement.setInt(1, id);
+            statement.setObject(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,7 +79,7 @@ public class UserJdbcDao {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM Users")) {
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                UUID id = (UUID) resultSet.getObject("id");
                 String username = resultSet.getString("username");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");

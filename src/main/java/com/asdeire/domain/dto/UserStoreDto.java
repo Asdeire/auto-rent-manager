@@ -5,8 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-import java.nio.file.Path;
-import java.time.LocalDate;
+
 
 public record UserStoreDto(
         @NotBlank(message = "Ім'я користувача не може бути порожнім")
@@ -20,12 +19,7 @@ public record UserStoreDto(
 
         @NotBlank(message = "Пароль не може бути порожнім")
         @Size(min = 8, max = 72, message = "Пароль повинен містити від 8 до 72 символів")
-        String password,
-
-        Path avatar,
-
-        @Past(message = "День народження має бути в минулому")
-        LocalDate birthday
+        String password
 ) {
 
 }

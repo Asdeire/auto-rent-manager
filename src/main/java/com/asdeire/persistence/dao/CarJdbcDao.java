@@ -2,13 +2,14 @@ package com.asdeire.persistence.dao;
 
 import com.asdeire.persistence.entities.Car;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.sql.DataSource;
+import java.util.UUID;
 
 public class CarJdbcDao {
     private DataSource dataSource;
@@ -17,15 +18,15 @@ public class CarJdbcDao {
         this.dataSource = dataSource;
     }
 
-    public Car findById(int id) {
+    public Car findById(UUID id) {
         Car car = null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Car WHERE id = ?")) {
-            statement.setInt(1, id);
+            statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     car = new Car(
-                            resultSet.getInt("id"),
+                            (UUID) resultSet.getObject("id"),
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),
@@ -65,22 +66,23 @@ public class CarJdbcDao {
             statement.setInt(4, car.getCategoryId());
             statement.setDouble(5, car.getRating());
             statement.setBoolean(6, car.isAvailability());
-            statement.setInt(7, car.getId());
+            statement.setObject(7, car.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(int id) {
+    public void delete(UUID id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM Car WHERE id = ?")) {
-            statement.setInt(1, id);
+            statement.setObject(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     public List<Car> getAll() {
         List<Car> cars = new ArrayList<>();
         String query = "SELECT * FROM Car";
@@ -90,7 +92,7 @@ public class CarJdbcDao {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                UUID id = (UUID) resultSet.getObject("id");
                 String brand = resultSet.getString("brand");
                 String model = resultSet.getString("model");
                 int year = resultSet.getInt("year");
@@ -115,7 +117,7 @@ public class CarJdbcDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Car car = new Car(
-                            resultSet.getInt("id"),
+                            (UUID) resultSet.getObject("id"),
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),
@@ -140,7 +142,7 @@ public class CarJdbcDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Car car = new Car(
-                            resultSet.getInt("id"),
+                            (UUID) resultSet.getObject("id"),
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),

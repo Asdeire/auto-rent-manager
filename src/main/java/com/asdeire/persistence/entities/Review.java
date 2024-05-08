@@ -5,7 +5,7 @@ import com.asdeire.persistence.entities.impl.Entity;
 import java.util.Date;
 
 public record Review(int id, int userId, int carId, double rating, String comment,
-                     Date date) implements Entity {
+                     Date date)  {
     public int getUserID() {
         return userId;
     }

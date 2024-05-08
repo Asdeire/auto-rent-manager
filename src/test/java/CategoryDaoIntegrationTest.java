@@ -18,10 +18,7 @@ public class CategoryDaoIntegrationTest {
     private static DataSource dataSource;
     private CategoryJdbcDao categoryDao;
 
-    @BeforeAll
-    static void setUp() {
-        dataSource = DatabaseConfig.getDataSource();
-    }
+
 
     @BeforeEach
     void init() {

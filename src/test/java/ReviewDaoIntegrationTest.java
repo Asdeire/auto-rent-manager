@@ -23,7 +23,7 @@ public class ReviewDaoIntegrationTest {
 
     @BeforeEach
     void init() {
-        dataSource = DatabaseConfig.getDataSource();
+
         reviewDao = new ReviewJdbcDao(dataSource);
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {

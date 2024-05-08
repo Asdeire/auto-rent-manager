@@ -6,16 +6,14 @@ import com.asdeire.domain.exception.SignUpException;
 import com.asdeire.persistence.entities.User;
 import com.asdeire.persistence.repository.impl.UserRepository;
 import com.password4j.Password;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.InternetAddress;
+
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
