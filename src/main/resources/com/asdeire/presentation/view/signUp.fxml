@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asdeire.presentation.controller.SignUpController">
+    <VBox alignment="CENTER" minHeight="300.0" minWidth="300.0" prefHeight="400.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER" spacing="10.0">
+            <Label text="Username:" />
+            <TextField fx:id="usernameField" />
+        </HBox>
+        <HBox alignment="CENTER" spacing="10.0">
+            <Label text="Email:" />
+            <TextField fx:id="emailField">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <effect>
+               <Blend />
+            </effect></TextField>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets left="22.0" />
+         </VBox.margin>
+        </HBox>
+        <HBox alignment="CENTER" spacing="10.0">
+            <Label text="Password:" />
+            <PasswordField fx:id="passwordField" />
+        </HBox>
+        <HBox alignment="CENTER" spacing="10.0">
+            <Button onAction="#onSubmit" text="Submit" />
+        </HBox>
+    </VBox>
+</AnchorPane>

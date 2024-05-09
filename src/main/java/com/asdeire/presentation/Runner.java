@@ -3,13 +3,14 @@ package com.asdeire.presentation;
 import com.asdeire.persistence.ApplicationConfig;
 import com.asdeire.persistence.util.ConnectionManager;
 import com.asdeire.persistence.util.DatabaseInitializer;
-
 import com.asdeire.presentation.util.SpringFXMLLoader;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 
 public class Runner extends Application {
 
@@ -20,8 +21,8 @@ public class Runner extends Application {
         var fxmlLoader = new SpringFXMLLoader(springContext);
         //stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         var mainFxmlResource = Runner.class.getResource("view/main.fxml");
-        Scene scene = new Scene((Parent) fxmlLoader.load(mainFxmlResource), 900, 600);
-        stage.setTitle("Title");
+        Scene scene = new Scene((Parent) fxmlLoader.load(mainFxmlResource), 600, 400);
+        stage.setTitle("Authorization");
         stage.setScene(scene);
         stage.show();
     }

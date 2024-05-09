@@ -4,13 +4,17 @@ import com.asdeire.domain.dto.UserStoreDto;
 import com.asdeire.domain.service.impl.UserService;
 import com.asdeire.presentation.viewmodel.UserViewModel;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javafx.event.ActionEvent;
+import java.io.IOException;
 import java.util.UUID;
 
 
@@ -29,7 +33,8 @@ public class MainController {
     private PasswordField passwordField;
     @FXML
     private Label balanceLabel;
-
+    @FXML
+    private Button signUpButton;
 
     private UserViewModel userViewModel;
 
@@ -80,7 +85,26 @@ public class MainController {
     }
 
     @FXML
-    private void onCancel() {
-        System.out.println("Operation Cancelled");
+    private void onSignUp(ActionEvent event) throws IOException {
+        // Відкриття вікна авторизації
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/signUp.fxml"));
+        Parent root = fxmlLoader.load();
+
+        SignUpController signUpController = fxmlLoader.getController();
+        signUpController.setUserService(userService);
+
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.setWidth(600);
+        stage.setHeight(400);
+        stage.setTitle("SignUp");
+
+        stage.show();
+
+        /*Закриття поточного вікна
+        Stage stage = (Stage) signUpButton.getScene().getWindow();
+        stage.close();*/
     }
 }

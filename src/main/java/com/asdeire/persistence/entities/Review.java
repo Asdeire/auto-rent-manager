@@ -1,12 +1,10 @@
 package com.asdeire.persistence.entities;
 
-import com.asdeire.persistence.entities.impl.Entity;
-
 import java.util.Date;
 import java.util.UUID;
 
 public record Review(UUID id, UUID userId, UUID carId, double rating, String comment,
-                     Date date)  {
+                     Date date) {
     public UUID getUserID() {
         return userId;
     }
