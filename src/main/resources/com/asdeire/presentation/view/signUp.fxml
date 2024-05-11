@@ -37,7 +37,7 @@
             <PasswordField fx:id="passwordField" />
         </HBox>
         <HBox alignment="CENTER" spacing="10.0">
-            <Button onAction="#onSubmit" text="Submit" />
+            <Button fx:id="submitButton" onAction="#onSubmit" text="Submit" />
         </HBox>
     </VBox>
 </AnchorPane>

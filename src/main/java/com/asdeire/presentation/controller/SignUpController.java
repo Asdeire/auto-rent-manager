@@ -3,15 +3,24 @@ package com.asdeire.presentation.controller;
 import com.asdeire.domain.dto.UserStoreDto;
 import com.asdeire.domain.exception.ValidationException;
 import com.asdeire.domain.service.impl.UserService;
+import com.asdeire.presentation.Runner;
 import com.asdeire.presentation.viewmodel.UserViewModel;
 import jakarta.validation.ConstraintViolation;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,8 +35,10 @@ public class SignUpController {
     private UserViewModel userViewModel;
     @Autowired
     private UserService userService;
+    @FXML
+    private Button submitButton;
 
-    public void setUserService(UserService userService){
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
@@ -51,10 +62,10 @@ public class SignUpController {
     }
 
     @FXML
-    public void onSubmit() {
+    public void onSubmit(ActionEvent event) throws Exception {
 
         try {
-            System.out.println("Saving User Data: " + userViewModel);
+            System.out.println(STR."Saving User Data: \{userViewModel}");
 
             UserStoreDto userStoreDto = new UserStoreDto(
                     userViewModel.getUsername(),
@@ -63,6 +74,12 @@ public class SignUpController {
             );
 
             userService.create(userStoreDto);
+
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+            stage.close();
+
+            Runner runner = new Runner();
+            runner.start(new Stage());
 
             // Відображення інформації через Alert
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

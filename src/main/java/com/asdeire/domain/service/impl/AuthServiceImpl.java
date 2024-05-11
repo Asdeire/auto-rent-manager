@@ -6,8 +6,9 @@ import com.asdeire.persistence.entities.User;
 import com.asdeire.persistence.repository.impl.UserRepository;
 import com.asdeire.domain.exception.UserAlreadyAuthenticatedException;
 import com.password4j.Password;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class AuthServiceImpl {
 
     private final UserRepository userRepository;
@@ -44,5 +45,12 @@ public class AuthServiceImpl {
 
     public User getUser() {
         return user;
+    }
+
+    public void logout() {
+        if (user == null) {
+            throw new UserAlreadyAuthenticatedException("Ви ще не автентифікавані.");
+        }
+        user = null;
     }
 }

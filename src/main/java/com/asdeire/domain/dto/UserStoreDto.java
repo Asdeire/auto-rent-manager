@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-
 public record UserStoreDto(
         @NotBlank(message = "Ім'я користувача не може бути порожнім")
         @Size(min = 6, max = 32, message = "Ім'я користувача має містити від 6 до 32 символів")

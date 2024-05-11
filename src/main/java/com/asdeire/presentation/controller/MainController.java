@@ -33,8 +33,6 @@ public class MainController {
     private PasswordField passwordField;
     @FXML
     private Label balanceLabel;
-    @FXML
-    private Button signUpButton;
 
     private UserViewModel userViewModel;
 
@@ -64,7 +62,7 @@ public class MainController {
 
     @FXML
     private void onSave() {
-        System.out.println("Saving User Data: " + userViewModel);
+        System.out.println(STR."Saving User Data: \{userViewModel}");
 
         // Відображення інформації через Alert
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

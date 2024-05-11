@@ -48,8 +48,8 @@ public class UserRepository {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    UUID uuid = UUID.fromString(String.format("%08x", id));
+                    //UUID id = (UUID) resultSet.getObject("user_id");
+                    UUID uuid = UUID.fromString(resultSet.getString("user_id"));
                     String email = resultSet.getString("email");
                     String password = resultSet.getString("password");
                     double balance = resultSet.getDouble("balance");

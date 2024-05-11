@@ -29,7 +29,7 @@
 
         <HBox spacing="10.0" alignment="CENTER">
             <Button text="Save" onAction="#onSave"/>
-            <Button fx:id="signUpButton" text="SignUp" onAction="#onSignUp"/>
+            <Button text="SignUp" onAction="#onSignUp"/>
         </HBox>
     </VBox>
 </AnchorPane>
