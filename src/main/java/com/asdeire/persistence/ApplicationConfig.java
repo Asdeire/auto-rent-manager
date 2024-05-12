@@ -1,6 +1,7 @@
 package com.asdeire.persistence;
 
 
+import com.asdeire.persistence.entities.User;
 import jakarta.mail.Authenticator;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import java.util.Properties;
+import java.util.UUID;
 
 
 @Configuration
@@ -58,4 +60,5 @@ public class ApplicationConfig {
             }
         });
     }
+
 }

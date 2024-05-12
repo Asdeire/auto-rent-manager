@@ -117,7 +117,7 @@ public class CarJdbcDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Car car = new Car(
-                            (UUID) resultSet.getObject("id"),
+                            (UUID) resultSet.getObject("car_id"),
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),

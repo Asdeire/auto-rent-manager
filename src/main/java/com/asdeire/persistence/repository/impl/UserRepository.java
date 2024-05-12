@@ -27,7 +27,7 @@ public class UserRepository {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new User(
-                            (UUID) resultSet.getObject("id"),
+                            (UUID) resultSet.getObject("user_id"),
                             resultSet.getString("username"),
                             resultSet.getString("email"),
                             resultSet.getString("password"),

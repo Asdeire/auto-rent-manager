@@ -1,5 +1,6 @@
 package com.asdeire.presentation;
 
+import com.asdeire.domain.service.impl.AuthServiceImpl;
 import com.asdeire.persistence.ApplicationConfig;
 import com.asdeire.persistence.util.ConnectionManager;
 import com.asdeire.persistence.util.DatabaseInitializer;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class Runner extends Application {
 
     private static AnnotationConfigApplicationContext springContext;
+    private AuthServiceImpl authService;
 
     @Override
     public void start(Stage stage) throws Exception {

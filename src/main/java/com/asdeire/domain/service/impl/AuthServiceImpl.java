@@ -1,6 +1,5 @@
 package com.asdeire.domain.service.impl;
 
-
 import com.asdeire.domain.exception.AuthenticationException;
 import com.asdeire.persistence.entities.User;
 import com.asdeire.persistence.repository.impl.UserRepository;
@@ -12,8 +11,7 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl {
 
     private final UserRepository userRepository;
-    private User user;
-
+    private User currentUser;
 
     public AuthServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -21,36 +19,34 @@ public class AuthServiceImpl {
 
     public boolean authenticate(String username, String password) {
         // Перевіряємо, чи вже існує аутентифікований користувач
-        if (user != null) {
+        if (currentUser != null) {
             throw new UserAlreadyAuthenticatedException("Ви вже авторизувалися як: %s"
-                    .formatted(user.getUsername()));
+                    .formatted(currentUser.getUsername()));
         }
 
-        User foundedUser = userRepository.findByUsername(username)
+        User foundUser = userRepository.findByUsername(username)
                 .orElseThrow(AuthenticationException::new);
 
-        if (!Password.check(password, foundedUser.password()).withBcrypt()) {
+        if (!Password.check(password, foundUser.getPassword()).withBcrypt()) {
             return false;
         }
 
-        user = foundedUser;
+        currentUser = foundUser;
         return true;
     }
 
-
     public boolean isAuthenticated() {
-        return user != null;
+        return currentUser != null;
     }
 
-
-    public User getUser() {
-        return user;
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     public void logout() {
-        if (user == null) {
+        if (currentUser == null) {
             throw new UserAlreadyAuthenticatedException("Ви ще не автентифікавані.");
         }
-        user = null;
+        currentUser = null;
     }
 }

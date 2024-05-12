@@ -4,6 +4,7 @@ import com.asdeire.persistence.entities.impl.Entity;
 
 import java.util.UUID;
 
+
 public record User(UUID id, String username, String email, String password, double balance)  {
 
     public String getUsername() {

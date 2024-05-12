@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.asdeire.presentation.controller.CategorySelectionController"
+      fx:id="rootNode"
+      styleClass="form-container">
+    <VBox spacing="10.0" styleClass="title-1">
+        <Label fx:id="userLabel" text="User: " />
+        <Label fx:id="balanceLabel" text="Balance: " />
+    </VBox>
+    <HBox spacing="10.0" alignment="CENTER" styleClass="accent">
+        <VBox fx:id="categoryButtons" alignment="CENTER" spacing="10.0"/>
+    </HBox>
+</VBox>

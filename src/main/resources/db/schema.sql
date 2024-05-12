@@ -1,11 +1,10 @@
-DROP TABLE IF EXISTS rentals;
+/*DROP TABLE IF EXISTS rentals;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS cars;
-DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS categories;*/
 
 
--- Створення таблиць
 CREATE TABLE IF NOT EXISTS users (
     user_id uuid PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
@@ -28,7 +27,8 @@ CREATE TABLE IF NOT EXISTS cars (
     category_id uuid,
     rating DECIMAL(3, 2) DEFAULT NULL,
     availability BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+    FOREIGN KEY (category_id) REFERENCES categories(category_id),
+    price DECIMAL(5, 2)
     );
 
 CREATE TABLE IF NOT EXISTS rentals (
