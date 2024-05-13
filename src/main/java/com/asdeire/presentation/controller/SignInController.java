@@ -93,9 +93,6 @@ public class SignInController {
 
         stage.show();
 
-        /*Закриття поточного вікна
-        Stage stage = (Stage) signUpButton.getScene().getWindow();
-        stage.close();*/
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

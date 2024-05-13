@@ -36,7 +36,8 @@ public class CarRepository {
                             resultSet.getInt("year"),
                             (UUID) resultSet.getObject("categoryId"),
                             resultSet.getDouble("rating"),
-                            resultSet.getBoolean("availability")
+                            resultSet.getBoolean("availability"),
+                            resultSet.getDouble("price")
                     );
                 }
             }
@@ -45,4 +46,32 @@ public class CarRepository {
         }
         return car;
     }
+
+    public List<Car> findCarsByCategory(UUID category_id) {
+        List<Car> cars = new ArrayList<>();
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cars WHERE category_id = ?")) {
+            statement.setObject(1, category_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Car car = new Car(
+                            (UUID) resultSet.getObject("car_id"),
+                            resultSet.getString("brand"),
+                            resultSet.getString("model"),
+                            resultSet.getInt("year"),
+                            (UUID) resultSet.getObject("category_id"),
+                            resultSet.getDouble("rating"),
+                            resultSet.getBoolean("availability"),
+                            resultSet.getDouble("price")
+                    );
+                    cars.add(car);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cars;
+    }
+
+
 }

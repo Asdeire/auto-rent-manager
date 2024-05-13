@@ -1,7 +1,6 @@
 package com.asdeire.presentation.controller;
 
 import com.asdeire.domain.service.impl.AuthServiceImpl;
-import com.asdeire.domain.service.impl.CarSelectionService;
 import com.asdeire.domain.service.impl.CategorySelectionService;
 import com.asdeire.persistence.entities.Category;
 import com.asdeire.persistence.entities.User;
@@ -18,10 +17,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,27 +35,32 @@ public class CategorySelectionController {
 
     @FXML
     private VBox categoryButtons;
+
     @FXML
     private Parent rootNode;
 
     private final AnnotationConfigApplicationContext springContext;
 
-    @Autowired
-    private CategorySelectionService categorySelectionService;
+    private final CategorySelectionService categorySelectionService;
     private User currentUser;
-    private Category currentCategory;
     private AuthServiceImpl authService;
     private CarSelectionController carSelectionController;
+
+    private Stage previousStage;
+
+    public CategorySelectionController(AnnotationConfigApplicationContext springContext,
+                                       CategorySelectionService categorySelectionService,
+                                       CarSelectionController carSelectionController) {
+        this.springContext = springContext;
+        this.categorySelectionService = categorySelectionService;
+        this.carSelectionController = carSelectionController;
+    }
 
     @FXML
     private void initialize() {
         rootNode.setOnKeyPressed(this::handleKeyPress);
-        loadCarSelectionController();
     }
 
-    CategorySelectionController(AnnotationConfigApplicationContext springContext) {
-        this.springContext = springContext;
-    }
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -66,7 +70,6 @@ public class CategorySelectionController {
     public void setAuthService(AuthServiceImpl authService) {
         this.authService = authService;
     }
-
 
     private void updateUI() {
         if (currentUser != null) {
@@ -78,24 +81,26 @@ public class CategorySelectionController {
         }
     }
 
-
-
-    private void displayCategories() {
+    private void displayCategories(){
         List<Category> categories = categorySelectionService.getAllCategories();
 
         for (Category category : categories) {
             Button button = new Button(category.getName());
             button.setMinSize(100, 50);
-            button.setOnAction(event -> handleCategorySelection(category));
+            button.setOnAction(event -> {
+                try {
+                    handleCategorySelection(event, category);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             categoryButtons.getChildren().add(button);
         }
     }
 
     @FXML
-    private void handleCategorySelection(Category category) {
-        if (carSelectionController != null) {
-            carSelectionController.setSelectedCategory(category);
-        }
+    private void handleCategorySelection(ActionEvent event, Category category) throws IOException{
+        openCarSelection(category, (Stage) ((Node) event.getSource()).getScene().getWindow());
     }
 
 
@@ -105,6 +110,7 @@ public class CategorySelectionController {
         alert.setHeaderText(message);
         alert.showAndWait();
     }
+
     @FXML
     private void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) {
@@ -120,16 +126,27 @@ public class CategorySelectionController {
         }
     }
 
-    private void loadCarSelectionController() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/carSelection.fxml"));
-        Parent carSelectionRoot;
-        try {
-            carSelectionRoot = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
+    private void openCarSelection(Category category, Stage currentStage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/carSelection.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
 
-        carSelectionController = loader.getController();
+        CarSelectionController carSelectionController = fxmlLoader.getController();
+        carSelectionController.setSelectedCategory(category);
+        carSelectionController.setCurrentUser(currentUser);
+        carSelectionController.setPreviousStage(currentStage);
+
+        Scene scene = new Scene(root, 600, 400);
+
+        Stage stage = new Stage();
+        stage.setTitle("Cars");
+        stage.setScene(scene);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
+        stage.show();
+
+        // Зберігаємо попереднє вікно
+        this.previousStage = currentStage;
+        currentStage.close();
     }
 }

@@ -5,7 +5,7 @@ import com.asdeire.persistence.entities.impl.Entity;
 import java.util.UUID;
 
 public record Car(UUID id, String brand, String model, int year, UUID categoryId, Double rating,
-                  Boolean availability) implements Entity {
+                  Boolean availability, Double price) implements Entity {
     public String getBrand() {
         return brand;
     }
@@ -22,6 +22,9 @@ public record Car(UUID id, String brand, String model, int year, UUID categoryId
         return rating;
     }
 
+    public Double getPrice() {
+        return price;
+    }
 
     public String getModel() {
         return model;
@@ -34,5 +37,4 @@ public record Car(UUID id, String brand, String model, int year, UUID categoryId
     public UUID getCategoryId() {
         return categoryId;
     }
-
 }

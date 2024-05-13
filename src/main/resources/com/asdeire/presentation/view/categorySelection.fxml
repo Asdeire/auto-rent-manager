@@ -7,7 +7,7 @@
       fx:controller="com.asdeire.presentation.controller.CategorySelectionController"
       fx:id="rootNode"
       styleClass="form-container">
-    <VBox spacing="10.0" styleClass="title-1">
+    <VBox spacing="1.0" styleClass="title-1">
         <Label fx:id="userLabel" text="User: " />
         <Label fx:id="balanceLabel" text="Balance: " />
     </VBox>

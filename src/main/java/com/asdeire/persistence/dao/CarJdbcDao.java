@@ -32,7 +32,8 @@ public class CarJdbcDao {
                             resultSet.getInt("year"),
                             (UUID) resultSet.getObject("categoryID"),
                             resultSet.getDouble("rating"),
-                            resultSet.getBoolean("availability")
+                            resultSet.getBoolean("availability"),
+                            resultSet.getDouble("price")
                     );
                 }
             }
@@ -44,13 +45,14 @@ public class CarJdbcDao {
 
     public void create(Car car) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Car (brand, model, year, categoryID, rating, availability) VALUES (?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO Car (brand, model, year, categoryID, rating, availability, price) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             statement.setString(1, car.getBrand());
             statement.setString(2, car.getModel());
             statement.setInt(3, car.getYear());
             statement.setObject(4, car.getCategoryId());
             statement.setDouble(5, car.getRating());
             statement.setBoolean(6, car.isAvailability());
+            statement.setDouble(7, car.getPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +61,7 @@ public class CarJdbcDao {
 
     public void update(Car car) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE Car SET brand = ?, model = ?, year = ?, categoryID = ?, rating = ?, availability = ? WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE Car SET brand = ?, model = ?, year = ?, categoryID = ?, rating = ?, availability = ?, price = ? WHERE id = ?")) {
             statement.setString(1, car.getBrand());
             statement.setString(2, car.getModel());
             statement.setInt(3, car.getYear());
@@ -67,6 +69,7 @@ public class CarJdbcDao {
             statement.setDouble(5, car.getRating());
             statement.setBoolean(6, car.isAvailability());
             statement.setObject(7, car.getId());
+            statement.setDouble(8, car.getPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,8 +102,9 @@ public class CarJdbcDao {
                 UUID categoryId = (UUID) resultSet.getObject("categoryId");
                 double rating = resultSet.getDouble("rating");
                 boolean availability = resultSet.getBoolean("availability");
+                double price = resultSet.getDouble("price");
 
-                cars.add(new Car(id, brand, model, year, categoryId, rating, availability));
+                cars.add(new Car(id, brand, model, year, categoryId, rating, availability, price));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,7 +127,8 @@ public class CarJdbcDao {
                             resultSet.getInt("year"),
                             (UUID) resultSet.getObject("category_id"),
                             resultSet.getDouble("rating"),
-                            resultSet.getBoolean("availability")
+                            resultSet.getBoolean("availability"),
+                            resultSet.getDouble("price")
                     );
                     cars.add(car);
                 }
@@ -148,7 +153,8 @@ public class CarJdbcDao {
                             resultSet.getInt("year"),
                             (UUID) resultSet.getObject("category_id"),
                             resultSet.getDouble("rating"),
-                            resultSet.getBoolean("availability")
+                            resultSet.getBoolean("availability"),
+                            resultSet.getDouble("price")
                     );
                     cars.add(car);
                 }
