@@ -1,4 +1,4 @@
-package com.asdeire.persistence.repository;
+package com.asdeire.persistence.repository.impl;
 
 import com.asdeire.persistence.entities.impl.Entity;
 

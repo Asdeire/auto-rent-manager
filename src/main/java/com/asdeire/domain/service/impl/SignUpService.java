@@ -4,7 +4,7 @@ import com.asdeire.domain.dto.UserStoreDto;
 import com.asdeire.domain.exception.EmailException;
 import com.asdeire.domain.exception.SignUpException;
 import com.asdeire.persistence.entities.User;
-import com.asdeire.persistence.repository.impl.UserRepository;
+import com.asdeire.persistence.repository.UserRepository;
 import com.password4j.Password;
 import jakarta.mail.*;
 import org.slf4j.Logger;

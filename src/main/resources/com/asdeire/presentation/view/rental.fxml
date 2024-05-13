@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.asdeire.presentation.controller.RentalController"
+      spacing="2.0"
+      alignment="CENTER">
+    <Label text="Car Information"/>
+    <Label fx:id="carModelLabel" text="Model: "/>
+    <Label fx:id="carYearLabel" text="Year: "/>
+    <Label fx:id="carRatingLabel" text="Rating: "/>
+    <Label fx:id="carAvailableLabel" text="Available: "/>
+    <Label fx:id="carPriceLabel" text="Price: $"/>
+    <Label text="Start Date"/>
+    <DatePicker fx:id="startDatePicker"/>
+    <Label text="End Date"/>
+    <DatePicker fx:id="endDatePicker"/>
+    <Button text="Create Rental" onAction="#createRental"/>
+</VBox>

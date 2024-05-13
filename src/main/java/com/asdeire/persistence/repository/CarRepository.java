@@ -1,4 +1,4 @@
-package com.asdeire.persistence.repository.impl;
+package com.asdeire.persistence.repository;
 
 import com.asdeire.persistence.dao.CarJdbcDao;
 import com.asdeire.persistence.entities.Car;

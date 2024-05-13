@@ -1,11 +1,12 @@
 package com.asdeire.persistence.dao;
 
+import com.asdeire.persistence.entities.User;
+
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import javax.sql.DataSource;
-import com.asdeire.persistence.entities.User;
 
 public class UserJdbcDao {
     private DataSource dataSource;

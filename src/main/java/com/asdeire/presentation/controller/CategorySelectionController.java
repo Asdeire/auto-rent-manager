@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -34,7 +35,7 @@ public class CategorySelectionController {
     private Label balanceLabel;
 
     @FXML
-    private VBox categoryButtons;
+    private FlowPane categoryButtons;
 
     @FXML
     private Parent rootNode;

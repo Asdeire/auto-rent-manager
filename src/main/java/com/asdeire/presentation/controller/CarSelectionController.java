@@ -93,8 +93,25 @@ public class CarSelectionController {
         }
     }
 
+    @FXML
     private void handleCarSelection(Car car) {
-        // Логіка обробки вибору машини
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/rental.fxml"));
+            Parent root = loader.load();
+
+            RentalController controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+            controller.initData(car);
+
+            Stage stage = new Stage();
+            stage.setMinHeight(300);
+            stage.setMinWidth(300);
+            stage.setScene(new Scene(root));
+            stage.setTitle("Rental Information");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

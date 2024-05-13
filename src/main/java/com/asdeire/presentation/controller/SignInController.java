@@ -87,8 +87,8 @@ public class SignInController {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.setWidth(600);
-        stage.setHeight(400);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
         stage.setTitle("SignUp");
 
         stage.show();

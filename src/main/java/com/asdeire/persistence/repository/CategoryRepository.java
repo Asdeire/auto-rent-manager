@@ -1,4 +1,4 @@
-package com.asdeire.persistence.repository.impl;
+package com.asdeire.persistence.repository;
 
 import com.asdeire.persistence.entities.Category;
 import org.springframework.stereotype.Repository;

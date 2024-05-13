@@ -1,5 +1,6 @@
 package com.asdeire.presentation;
 
+import atlantafx.base.theme.PrimerLight;
 import com.asdeire.domain.service.impl.AuthServiceImpl;
 import com.asdeire.persistence.ApplicationConfig;
 import com.asdeire.persistence.util.ConnectionManager;
@@ -20,6 +21,7 @@ public class Runner extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
         var fxmlLoader = new SpringFXMLLoader(springContext);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         var mainFxmlResource = Runner.class.getResource("view/signIn.fxml");

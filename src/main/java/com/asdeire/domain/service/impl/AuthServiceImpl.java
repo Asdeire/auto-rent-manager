@@ -2,7 +2,7 @@ package com.asdeire.domain.service.impl;
 
 import com.asdeire.domain.exception.AuthenticationException;
 import com.asdeire.persistence.entities.User;
-import com.asdeire.persistence.repository.impl.UserRepository;
+import com.asdeire.persistence.repository.UserRepository;
 import com.asdeire.domain.exception.UserAlreadyAuthenticatedException;
 import com.password4j.Password;
 import org.springframework.stereotype.Service;

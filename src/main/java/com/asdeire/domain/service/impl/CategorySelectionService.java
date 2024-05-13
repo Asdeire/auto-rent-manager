@@ -1,8 +1,7 @@
 package com.asdeire.domain.service.impl;
 
-import com.asdeire.persistence.dao.CategoryJdbcDao;
 import com.asdeire.persistence.entities.Category;
-import com.asdeire.persistence.repository.impl.CategoryRepository;
+import com.asdeire.persistence.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

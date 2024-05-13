@@ -8,24 +8,25 @@ import com.asdeire.presentation.viewmodel.UserViewModel;
 import jakarta.validation.ConstraintViolation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.Set;
 import java.util.UUID;
 
 @Component
 public class SignUpController {
+    @FXML
+    private Parent rootNode;
     @FXML
     private TextField usernameField;
     @FXML
@@ -38,12 +39,15 @@ public class SignUpController {
     @FXML
     private Button submitButton;
 
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
     @FXML
     public void initialize() {
+        rootNode.setOnKeyPressed(this::handleKeyPress);
+
         userViewModel = new UserViewModel(
                 UUID.randomUUID(),
                 usernameField.textProperty().get(),
@@ -107,4 +111,17 @@ public class SignUpController {
         }
     }
 
+    @FXML
+    private void handleKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE) {
+            Runner runner = new Runner();
+            try {
+                runner.start(new Stage());
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.close();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

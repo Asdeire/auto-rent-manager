@@ -3,7 +3,7 @@ package com.asdeire.domain.service.impl;
 import com.asdeire.domain.dto.UserStoreDto;
 import com.asdeire.domain.exception.ValidationException;
 import com.asdeire.persistence.entities.User;
-import com.asdeire.persistence.repository.impl.UserRepository;
+import com.asdeire.persistence.repository.UserRepository;
 import com.password4j.Password;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
