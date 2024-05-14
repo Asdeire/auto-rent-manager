@@ -1,6 +1,8 @@
 package com.asdeire.persistence.repository;
 
+import com.asdeire.persistence.entities.Rental;
 import com.asdeire.persistence.entities.User;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -14,9 +16,11 @@ import java.util.UUID;
 @Repository
 public class UserRepository {
     private DataSource dataSource;
+    private final JdbcTemplate jdbcTemplate;
 
-    public UserRepository(DataSource dataSource) {
+    public UserRepository(DataSource dataSource, JdbcTemplate jdbcTemplate) {
         this.dataSource = dataSource;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public User findById(UUID id) {
@@ -52,7 +56,7 @@ public class UserRepository {
                     UUID uuid = UUID.fromString(resultSet.getString("user_id"));
                     String email = resultSet.getString("email");
                     String password = resultSet.getString("password");
-                    double balance = resultSet.getDouble("balance");
+                    Double balance = resultSet.getDouble("balance");
                     return Optional.of(new User(uuid, username, email, password, balance));
                 }
             }
@@ -61,6 +65,7 @@ public class UserRepository {
         }
         return Optional.empty();
     }
+
     public void add(User user) {
         String sql = "INSERT INTO Users (user_id, username, email, password, balance) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
@@ -74,6 +79,11 @@ public class UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void update(User user) {
+        String sql = "UPDATE Users SET username = ?, email = ?, password = ?, balance = ? WHERE user_id = ?";
+        jdbcTemplate.update(sql, user.getUsername(), user.getEmail(), user.getPassword(), user.getBalance(), user.getId());
     }
 
 }

@@ -35,7 +35,7 @@ public class CategorySelectionController {
     private Label balanceLabel;
 
     @FXML
-    private FlowPane categoryButtons;
+    private VBox categoryButtons;
 
     @FXML
     private Parent rootNode;
@@ -87,7 +87,7 @@ public class CategorySelectionController {
 
         for (Category category : categories) {
             Button button = new Button(category.getName());
-            button.setMinSize(100, 50);
+            button.setMinSize(120, 50);
             button.setOnAction(event -> {
                 try {
                     handleCategorySelection(event, category);

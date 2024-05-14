@@ -43,7 +43,7 @@ public class RentalJdbcDao {
                     UUID carId = (UUID) resultSet.getObject("car_id");
                     LocalDate startDate = resultSet.getDate("start_date").toLocalDate();
                     LocalDate endDate = resultSet.getDate("end_date").toLocalDate();
-                    BigDecimal price = resultSet.getBigDecimal("price");
+                    Double price = resultSet.getDouble("price");
                     return new Rental(rentalId, userId, carId, startDate, endDate, price);
                 } else {
                     return null; // Якщо оренду не знайдено
@@ -60,7 +60,7 @@ public class RentalJdbcDao {
             statement.setObject(2, rental.getCarId());
             statement.setDate(3, Date.valueOf(rental.getStartDate()));
             statement.setDate(4, Date.valueOf(rental.getEndDate()));
-            statement.setBigDecimal(5, rental.getPrice());
+            statement.setDouble(5, rental.getPrice());
             statement.setObject(6, rental.getRentalId());
             statement.executeUpdate();
         }
@@ -87,7 +87,7 @@ public class RentalJdbcDao {
                 UUID carId = (UUID) resultSet.getObject("car_id");
                 LocalDate startDate = resultSet.getDate("start_date").toLocalDate();
                 LocalDate endDate = resultSet.getDate("end_date").toLocalDate();
-                BigDecimal price = resultSet.getBigDecimal("price");
+                Double price = resultSet.getDouble("price");
                 Rental rental = new Rental(rentalId, userId, carId, startDate, endDate, price);
                 rentals.add(rental);
             }

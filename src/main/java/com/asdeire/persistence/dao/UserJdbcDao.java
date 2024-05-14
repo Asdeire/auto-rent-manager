@@ -18,7 +18,7 @@ public class UserJdbcDao {
     public User findById(UUID id) {
         User user = null;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE user_id = ?")) {
             statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -52,7 +52,7 @@ public class UserJdbcDao {
 
     public void update(User user) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE Users SET username = ?, email = ?, password = ?, balance = ? WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE Users SET username = ?, email = ?, password = ?, balance = ? WHERE user_id = ?")) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
@@ -66,7 +66,7 @@ public class UserJdbcDao {
 
     public void delete(UUID id) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM Users WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM Users WHERE user_id = ?")) {
             statement.setObject(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {

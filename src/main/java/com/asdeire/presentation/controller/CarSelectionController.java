@@ -44,9 +44,13 @@ public class CarSelectionController {
     private CarSelectionService carSelectionService;
     private User currentUser;
     private Category selectedCategory;
-    private AnnotationConfigApplicationContext springContext;
+    private final AnnotationConfigApplicationContext springContext;
 
     private Stage previousStage;
+
+    public CarSelectionController(AnnotationConfigApplicationContext springContext) {
+        this.springContext = springContext;
+    }
 
     public void setPreviousStage(Stage previousStage) {
         this.previousStage = previousStage;
@@ -84,7 +88,7 @@ public class CarSelectionController {
             for (Car car : carsInCategory) {
                 Button button = new Button(car.getBrand() + " " + car.getModel());
                 button.setMinSize(150, 70);
-                button.setOnAction(event -> handleCarSelection(car));
+                button.setOnAction(event -> handleCarSelection(car, (Stage) ((Node) event.getSource()).getScene().getWindow()));
                 carButtons.getChildren().add(button);
             }
 
@@ -94,20 +98,22 @@ public class CarSelectionController {
     }
 
     @FXML
-    private void handleCarSelection(Car car) {
+    private void handleCarSelection(Car car, Stage currentStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/rental.fxml"));
+            loader.setControllerFactory(springContext::getBean);
             Parent root = loader.load();
 
             RentalController controller = loader.getController();
             controller.setCurrentUser(currentUser);
             controller.initData(car);
+            controller.setPreviousStage(currentStage);
 
             Stage stage = new Stage();
-            stage.setMinHeight(300);
+            stage.setMinHeight(350);
             stage.setMinWidth(300);
             stage.setScene(new Scene(root));
-            stage.setTitle("Rental Information");
+            stage.setTitle("Rent Menu");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

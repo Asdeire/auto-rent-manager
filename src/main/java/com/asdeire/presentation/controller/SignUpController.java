@@ -69,7 +69,6 @@ public class SignUpController {
     public void onSubmit(ActionEvent event) throws Exception {
 
         try {
-            System.out.println(STR."Saving User Data: \{userViewModel}");
 
             UserStoreDto userStoreDto = new UserStoreDto(
                     userViewModel.getUsername(),
@@ -89,7 +88,6 @@ public class SignUpController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("User Information");
             alert.setHeaderText("User saved Successfully");
-            alert.setContentText(userViewModel.toString());
             alert.showAndWait();
 
         } catch (ValidationException e) {

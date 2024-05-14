@@ -2,10 +2,11 @@ package com.asdeire.persistence.entities;
 
 import com.asdeire.persistence.entities.impl.Entity;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 
-public record User(UUID id, String username, String email, String password, double balance)  {
+public record User(UUID id, String username, String email, String password, Double balance)  {
 
     public String getUsername() {
         return username;
@@ -18,7 +19,7 @@ public record User(UUID id, String username, String email, String password, doub
         return password;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 

@@ -64,7 +64,7 @@ public class RentalRepository {
                     UUID.fromString(rs.getString("car_id")),
                     rs.getDate("start_date").toLocalDate(),
                     rs.getDate("end_date").toLocalDate(),
-                    rs.getBigDecimal("price")
+                    rs.getDouble("price")
             );
         }
     }

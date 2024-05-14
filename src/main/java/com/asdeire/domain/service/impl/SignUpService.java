@@ -41,7 +41,7 @@ final class SignUpService {
     public void signUp(String username,
                        String password,
                        String email,
-                       int balance,
+                       double balance,
                        Supplier<String> waitForUserInput) {
         try {
             String verificationCode = generateAndSendVerificationCode(email);

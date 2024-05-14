@@ -22,7 +22,7 @@
 
         <HBox spacing="10.0" alignment="CENTER">
         <Button text="Login" onAction="#handleLogin" styleClass="accent" />
-        <Button text="Registration" onAction="#onSignUp" styleClass="accent"/>
+        <Button text="SignUp" onAction="#onSignUp" styleClass="accent"/>
         </HBox>
     </VBox>
 </VBox>

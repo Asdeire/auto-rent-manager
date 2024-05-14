@@ -49,4 +49,8 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Користувача з таким ім'ям не знайдено: " + username));
     }
+
+    public void update(User user) {
+        userRepository.update(user);
+    }
 }

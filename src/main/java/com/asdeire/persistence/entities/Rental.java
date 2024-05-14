@@ -10,10 +10,10 @@ public class Rental {
     private UUID carId;
     private LocalDate startDate;
     private LocalDate endDate;
-    private BigDecimal price;
+    private Double price;
 
     // Конструктор
-    public Rental(UUID rentalId, UUID userId, UUID carId, LocalDate startDate, LocalDate endDate, BigDecimal price) {
+    public Rental(UUID rentalId, UUID userId, UUID carId, LocalDate startDate, LocalDate endDate, Double price) {
         this.rentalId = rentalId;
         this.userId = userId;
         this.carId = carId;
@@ -64,11 +64,11 @@ public class Rental {
         this.endDate = endDate;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }
