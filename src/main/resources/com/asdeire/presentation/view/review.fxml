@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER"
+      xmlns="http://javafx.com/javafx/17.0.1"
+      fx:id="rootNode"
+      styleClass="form-container"
+      fx:controller="com.asdeire.presentation.controller.ReviewController">
+    <VBox spacing="10.0" alignment="CENTER">
+        <Label text="Leave a Review" styleClass="title-1"/>
+        <Label fx:id="carLabel" styleClass="title-3"/>
+        <Label text="Rating:" styleClass="caption"/>
+        <HBox spacing="5.0" alignment="CENTER" fx:id="starButtonsContainer"/>
+        <Label text="Comment:" styleClass="caption"/>
+        <TextArea fx:id="txtComment" prefHeight="100.0" prefWidth="200.0"/>
+        <Button fx:id="btnSubmit" mnemonicParsing="false" styleClass="accent" onAction="#submitReview" text="Submit"/>
+    </VBox>
+
+</VBox>

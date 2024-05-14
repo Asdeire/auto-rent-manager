@@ -1,6 +1,8 @@
 package com.asdeire.persistence.repository;
 
 import com.asdeire.persistence.entities.Review;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -9,17 +11,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
+@Repository
 public class ReviewRepository {
     private DataSource dataSource;
+    private final JdbcTemplate jdbcTemplate;
 
-    public ReviewRepository(DataSource dataSource) {
+    public ReviewRepository(DataSource dataSource, JdbcTemplate jdbcTemplate) {
         this.dataSource = dataSource;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public Review findById(UUID id) {
         Review review = null;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Review WHERE id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Reviews WHERE id = ?")) {
             statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -37,5 +42,11 @@ public class ReviewRepository {
             e.printStackTrace();
         }
         return review;
+    }
+
+    public void create(Review review) {
+        String sql = "INSERT INTO Reviews (user_id, car_id, rating, comment, review_date) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, review.getUserID(), review.getCarID(),
+                review.getRating(), review.getComment(), review.getDate());
     }
 }

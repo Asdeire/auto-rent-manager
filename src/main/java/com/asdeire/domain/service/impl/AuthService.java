@@ -8,12 +8,12 @@ import com.password4j.Password;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthServiceImpl {
+public class AuthService {
 
     private final UserRepository userRepository;
     private User currentUser;
 
-    public AuthServiceImpl(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

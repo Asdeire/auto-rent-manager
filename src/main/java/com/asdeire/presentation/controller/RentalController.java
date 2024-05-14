@@ -1,6 +1,6 @@
 package com.asdeire.presentation.controller;
 
-import com.asdeire.domain.service.impl.AuthServiceImpl;
+import com.asdeire.domain.service.impl.AuthService;
 import com.asdeire.domain.service.impl.RentalService;
 import com.asdeire.domain.service.impl.UserService;
 import com.asdeire.persistence.entities.Car;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -54,10 +55,10 @@ public class RentalController {
     private UserService userService;
     private User currentUser;
     private final AnnotationConfigApplicationContext springContext;
-    private final AuthServiceImpl authenticationService;
+    private final AuthService authenticationService;
     private Stage previousStage;
 
-    public RentalController(AnnotationConfigApplicationContext springContext, AuthServiceImpl authenticationService) {
+    public RentalController(AnnotationConfigApplicationContext springContext, AuthService authenticationService) {
         this.springContext = springContext;
         this.authenticationService = authenticationService;
     }
@@ -79,6 +80,7 @@ public class RentalController {
 
     @FXML
     private void createRental() {
+
         LocalDate startDate = startDatePicker.getValue();
         LocalDate endDate = endDatePicker.getValue();
         Double price = calculatePrice(startDate, endDate);
@@ -111,19 +113,21 @@ public class RentalController {
                 currentUser.getEmail(),
                 currentUser.getPassword(),
                 newBalance);
+        if (!selectedCar.isAvailability()) {
+            showAlert(Alert.AlertType.ERROR, "Warning", "The car is not available");
+        } else {
+            try {
+                rentalService.createRental(rental);
 
-        try {
-            rentalService.createRental(rental);
+                userService.update(updetedUser);
 
-            userService.update(updetedUser);
-
-            Stage stage = (Stage) submitButton.getScene().getWindow();
-            stage.close();
-            previousStage.close();
-            openCategorySelection(stage, updetedUser);
-            showAlert(Alert.AlertType.CONFIRMATION, "Success", "The rental was successful, would you like to leave a review?");
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Warning", "Failed to execute rent");
+                Stage stage = (Stage) submitButton.getScene().getWindow();
+                stage.close();
+                showConfirmAlert(stage, updetedUser);
+                previousStage.close();
+            } catch (IOException e) {
+                showAlert(Alert.AlertType.ERROR, "Warning", "Failed to execute rent");
+            }
         }
     }
 
@@ -149,12 +153,27 @@ public class RentalController {
         alert.showAndWait();
     }
 
+    private void showConfirmAlert(Stage stage, User updatedUser) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("The rental was successful, would you like to leave a review?");
+        alert.getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            openReviewWindow(stage, updatedUser);
+        } else {
+            openCategorySelection(stage, updatedUser);
+        }
+    }
+
     private void showCarInfo(Car car) {
-        carModelLabel.setText("Model: " + car.getBrand() + " " + car.getModel());
-        carAvailableLabel.setText("Available: " + car.isAvailability());
-        carPriceLabel.setText("Price per day: " + car.getPrice());
-        carRatingLabel.setText("Rating: " + car.getRating());
-        carYearLabel.setText("Year: " + car.getYear());
+        carModelLabel.setText(STR."Model: \{car.getBrand()} \{car.getModel()}");
+        carAvailableLabel.setText(STR."Available: \{car.isAvailability()}");
+        carPriceLabel.setText(STR."Price per day: \{car.getPrice()}");
+        carRatingLabel.setText(STR."Rating: \{car.getRating()}");
+        carYearLabel.setText(STR."Year: \{car.getYear()}");
     }
 
     private void setDateLimit() {
@@ -201,6 +220,23 @@ public class RentalController {
 
         stage.setTitle("Category");
         stage.setScene(scene);
+        stage.show();
+    }
+
+    private void openReviewWindow(Stage stage, User updatedUser) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/review.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
+
+        ReviewController reviewController = fxmlLoader.getController();
+        reviewController.setCurrentUser(updatedUser);
+        reviewController.setCurrentCar(selectedCar);
+
+        Scene scene = new Scene(root);
+        stage.setMinHeight(40 - 0);
+        stage.setMinWidth(300);
+        stage.setScene(scene);
+        stage.setTitle("Review");
         stage.show();
     }
 }

@@ -21,8 +21,8 @@ public record Review(UUID id, UUID userId, UUID carId, double rating, String com
         return comment;
     }
 
-    public String getDate() {
-        return date.toString();
+    public Date getDate() {
+        return date;
     }
 
     public UUID getId() {

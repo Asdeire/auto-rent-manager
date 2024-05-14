@@ -1,6 +1,6 @@
 package com.asdeire.presentation.controller;
 
-import com.asdeire.domain.service.impl.AuthServiceImpl;
+import com.asdeire.domain.service.impl.AuthService;
 import com.asdeire.domain.service.impl.CategorySelectionService;
 import com.asdeire.persistence.entities.Category;
 import com.asdeire.persistence.entities.User;
@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -44,7 +43,7 @@ public class CategorySelectionController {
 
     private final CategorySelectionService categorySelectionService;
     private User currentUser;
-    private AuthServiceImpl authService;
+    private AuthService authService;
     private CarSelectionController carSelectionController;
 
     private Stage previousStage;
@@ -68,7 +67,7 @@ public class CategorySelectionController {
         updateUI();
     }
 
-    public void setAuthService(AuthServiceImpl authService) {
+    public void setAuthService(AuthService authService) {
         this.authService = authService;
     }
 

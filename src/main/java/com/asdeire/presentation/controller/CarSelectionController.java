@@ -110,7 +110,7 @@ public class CarSelectionController {
             controller.setPreviousStage(currentStage);
 
             Stage stage = new Stage();
-            stage.setMinHeight(350);
+            stage.setMinHeight(380);
             stage.setMinWidth(300);
             stage.setScene(new Scene(root));
             stage.setTitle("Rent Menu");

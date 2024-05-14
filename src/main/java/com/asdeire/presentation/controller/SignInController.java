@@ -2,7 +2,7 @@ package com.asdeire.presentation.controller;
 
 import com.asdeire.domain.exception.AuthenticationException;
 import com.asdeire.domain.exception.UserAlreadyAuthenticatedException;
-import com.asdeire.domain.service.impl.AuthServiceImpl;
+import com.asdeire.domain.service.impl.AuthService;
 import com.asdeire.domain.service.impl.CategorySelectionService;
 import com.asdeire.domain.service.impl.UserService;
 import com.asdeire.persistence.entities.User;
@@ -31,7 +31,7 @@ public class SignInController {
     private UserService userService;
     @Autowired
     private CategorySelectionService categorySelectionService;
-    private final AuthServiceImpl authenticationService;
+    private final AuthService authenticationService;
     @FXML
     public PasswordField passwordField;
     @FXML
@@ -41,7 +41,7 @@ public class SignInController {
     private final AnnotationConfigApplicationContext springContext;
     private User currentUser;
 
-    public SignInController(AuthServiceImpl authenticationService, AnnotationConfigApplicationContext springContext) {
+    public SignInController(AuthService authenticationService, AnnotationConfigApplicationContext springContext) {
         this.authenticationService = authenticationService;
         this.springContext = springContext;
     }

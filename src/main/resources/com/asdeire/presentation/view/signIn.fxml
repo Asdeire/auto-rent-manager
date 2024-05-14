@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <VBox xmlns:fx="http://javafx.com/fxml" xmlns:atlantafx="atlantafx.styles" alignment="CENTER"
-      spacing="20" styleClass="form-container"
+      styleClass="form-container"
       fx:controller="com.asdeire.presentation.controller.SignInController">
-    <Label text="Authorization" styleClass="title-1" />
+    <Label text="Authorization" styleClass="title-1"/>
 
     <VBox spacing="10" alignment="CENTER">
         <HBox alignment="CENTER" spacing="10">
-            <TextField fx:id="usernameField" promptText="Username" />
+            <TextField fx:id="usernameField" promptText="Username"/>
         </HBox>
         <HBox alignment="CENTER" spacing="10">
-            <PasswordField fx:id="passwordField" promptText="Password" />
+            <PasswordField fx:id="passwordField" promptText="Password"/>
         </HBox>
-        <CheckBox fx:id="rememberMeCheckBox" text="Remember me" />
+        <CheckBox fx:id="rememberMeCheckBox" text="Remember me"/>
 
         <HBox spacing="10.0" alignment="CENTER">
-        <Button text="Login" onAction="#handleLogin" styleClass="accent" />
-        <Button text="SignUp" onAction="#onSignUp" styleClass="accent"/>
+            <Button text="Login" onAction="#handleLogin" styleClass="accent"/>
+            <Button text="SignUp" onAction="#onSignUp" />
         </HBox>
     </VBox>
 </VBox>
