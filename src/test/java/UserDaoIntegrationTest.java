@@ -62,7 +62,7 @@ public class UserDaoIntegrationTest {
         userDao.create(user);
 
         // Update user data
-        User updatedUser = new User(user.id(), user.username(), "new_email@example.com", "newPassword", 150);
+        User updatedUser = new User(user.id(), user.username(), "new_email@example.com", "newPassword", 150.00);
         userDao.update(updatedUser);
 
 

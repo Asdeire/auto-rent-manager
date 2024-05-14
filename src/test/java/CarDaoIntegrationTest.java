@@ -1,4 +1,3 @@
-import com.asdeire.persistence.config.DatabaseConfig;
 import com.asdeire.persistence.dao.CarJdbcDao;
 import com.asdeire.persistence.entities.Car;
 import org.junit.jupiter.api.AfterEach;
@@ -42,7 +41,7 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testCreateAndGetCar() {
-        Car car = new Car(null, "Toyota", "Camry", 2022, UUID.randomUUID(), 4.5, true);
+        Car car = new Car(UUID.randomUUID(), "Toyota", "Camry", 2022, UUID.randomUUID(), 4.5, true, 100.00);
         carDao.create(car);
         Car retrievedCar = carDao.findById(car.getId());
         assertNotNull(retrievedCar);
@@ -56,10 +55,10 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testUpdateCar() {
-        Car car = new Car(UUID.randomUUID(), "Honda", "Accord", 2020, UUID.randomUUID(), 4.3, false);
+        Car car = new Car(UUID.randomUUID(), "Honda", "Accord", 2020, UUID.randomUUID(), 4.3, false, 100.00);
         carDao.create(car);
 
-        Car updatedCar = new Car(car.getId(), car.getBrand(), "Civic", car.getYear(), car.getCategoryId(), car.getRating(), car.isAvailability());
+        Car updatedCar = new Car(car.getId(), car.getBrand(), "Civic", car.getYear(), car.getCategoryId(), car.getRating(), car.isAvailability(), car.getPrice());
         carDao.update(updatedCar);
 
         Car retrievedCar = carDao.findById(car.getId());
@@ -75,7 +74,7 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testDeleteCar() {
-        Car car = new Car(UUID.randomUUID(), "Ford", "Focus", 2018, UUID.randomUUID(), 4.0, true);
+        Car car = new Car(UUID.randomUUID(), "Ford", "Focus", 2018, UUID.randomUUID(), 4.0, true, 100.00);
         carDao.create(car);
         carDao.delete(car.getId());
         Car retrievedCar = carDao.findById(car.getId());
@@ -84,8 +83,8 @@ public class CarDaoIntegrationTest {
 
     @Test
     void testGetAllCars() {
-        Car car1 = new Car(UUID.randomUUID(), "Toyota", "Camry", 2021, UUID.randomUUID(), 4.2, true);
-        Car car2 = new Car(UUID.randomUUID(), "Honda", "Accord", 2019, UUID.randomUUID(), 4.4, false);
+        Car car1 = new Car(UUID.randomUUID(), "Toyota", "Camry", 2021, UUID.randomUUID(), 4.2, true, 100.00);
+        Car car2 = new Car(UUID.randomUUID(), "Honda", "Accord", 2019, UUID.randomUUID(), 4.4, false, 100.00);
         carDao.create(car1);
         carDao.create(car2);
         List<Car> cars = carDao.getAll();
