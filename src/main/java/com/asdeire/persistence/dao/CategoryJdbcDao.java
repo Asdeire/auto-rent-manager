@@ -17,14 +17,14 @@ public class CategoryJdbcDao {
     }
 
     public Category findById(UUID id) {
-        String sql = "SELECT * FROM Category WHERE id = ?";
+        String sql = "SELECT * FROM categories WHERE category_id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return new Category(
-                            (UUID) resultSet.getObject("id"),
+                            (UUID) resultSet.getObject("category_id"),
                             resultSet.getString("name"),
                             resultSet.getString("description")
                     );
@@ -37,11 +37,12 @@ public class CategoryJdbcDao {
     }
 
     public void create(Category category) {
-        String sql = "INSERT INTO Category (name, description) VALUES (?, ?)";
+        String sql = "INSERT INTO categories (category_id, name, description) VALUES (?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, category.getName());
-            statement.setString(2, category.getDescription());
+            statement.setObject(1, category.getId());
+            statement.setString(2, category.getName());
+            statement.setString(3, category.getDescription());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,7 +50,7 @@ public class CategoryJdbcDao {
     }
 
     public void update(Category category) {
-        String sql = "UPDATE Category SET name = ?, description = ? WHERE id = ?";
+        String sql = "UPDATE categories SET name = ?, description = ? WHERE category_id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, category.getName());
@@ -62,7 +63,7 @@ public class CategoryJdbcDao {
     }
 
     public void delete(UUID id) {
-        String sql = "DELETE FROM Category WHERE id = ?";
+        String sql = "DELETE FROM categories WHERE category_id = ?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setObject(1, id);
@@ -72,4 +73,3 @@ public class CategoryJdbcDao {
         }
     }
 }
-

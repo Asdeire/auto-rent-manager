@@ -18,12 +18,12 @@ public class UserJdbcDao {
     public User findById(UUID id) {
         User user = null;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Users WHERE user_id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE user_id = ?")) {
             statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     user = new User(
-                            (UUID) resultSet.getObject("id"),
+                            (UUID) resultSet.getObject("user_id"),
                             resultSet.getString("username"),
                             resultSet.getString("email"),
                             resultSet.getString("password"),
@@ -39,11 +39,12 @@ public class UserJdbcDao {
 
     public void create(User user) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("INSERT INTO Users (username, email, password, balance) VALUES (?, ?, ?, ?)")) {
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
-            statement.setDouble(4, user.getBalance());
+             PreparedStatement statement = connection.prepareStatement("INSERT INTO users (user_id, username, email, password, balance) VALUES (?, ?, ?, ?, ?)")) {
+            statement.setObject(1, user.getId());
+            statement.setString(2, user.getUsername());
+            statement.setString(3, user.getEmail());
+            statement.setString(4, user.getPassword());
+            statement.setDouble(5, user.getBalance());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +53,7 @@ public class UserJdbcDao {
 
     public void update(User user) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("UPDATE Users SET username = ?, email = ?, password = ?, balance = ? WHERE user_id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("UPDATE users SET username = ?, email = ?, password = ?, balance = ? WHERE user_id = ?")) {
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getPassword());
@@ -66,7 +67,7 @@ public class UserJdbcDao {
 
     public void delete(UUID id) {
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM Users WHERE user_id = ?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE user_id = ?")) {
             statement.setObject(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -78,9 +79,9 @@ public class UserJdbcDao {
         List<User> users = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM Users")) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM users")) {
             while (resultSet.next()) {
-                UUID id = (UUID) resultSet.getObject("id");
+                UUID id = (UUID) resultSet.getObject("user_id");
                 String username = resultSet.getString("username");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
