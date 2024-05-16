@@ -1,6 +1,6 @@
-/*INSERT INTO users (user_id, username, email, password, balance)
-VALUES ('1be86e05-7a94-4d67-b33a-36f8f7b3d0dc', 'Userok', 'john.doe@example.com', '"$2b$10$KpOVZGykfId5RuUDij6aQu9dW.m2VkKL86uKtzWsI20EYZrOreP9i"', 100.00),
-       ('b58f7c69-4bf4-4cb2-a50c-35b02f5c15fb', 'JaneDoe', 'jane.doe@example.com', 'anothersecurepassword456', 150.00);
+INSERT INTO users (user_id, username, email, password, balance)
+VALUES ('1be86e05-7a94-4d67-b33a-36f8f7b3d0dc', 'Userok', 'john.doe@example.com', '$2b$10$KpOVZGykfId5RuUDij6aQu9dW.m2VkKL86uKtzWsI20EYZrOreP9i', 100.00),
+       ('b58f7c69-4bf4-4cb2-a50c-35b02f5c15fb', 'JaneDoe', 'jane.doe@example.com', '$2b$10$KpOVZGykfId5RuUDij6aQu9dW.m2VkKL86uKtzWsI20EYZrOreP9i', 150.00);
 
 INSERT INTO categories (category_id, name, description)
 VALUES ('a9258479-b33c-4f30-8e57-0aeb3a331ae7', 'Economy', 'Economy class cars suitable for routine city driving'),
@@ -32,6 +32,6 @@ INSERT INTO rentals (rental_id, user_id, car_id, start_date, end_date, price)
 VALUES ('9d847ce5-7e99-4e61-b012-3bde3f4d637b', '1be86e05-7a94-4d67-b33a-36f8f7b3d0dc',
         '4e251b14-79a3-4650-bc4c-ae14d9d78eb7', '2021-06-01', '2021-06-10', 500.00);
 
-INSERT INTO reviews (user_id, car_id, rating, comment, review_date)
-VALUES ('1be86e05-7a94-4d67-b33a-36f8f7b3d0dc', '4e251b14-79a3-4650-bc4c-ae14d9d78eb7', 4.5,
-        'Great experience, will rent again!', '2021-06-11');*/
+INSERT INTO reviews (review_id ,user_id, car_id, rating, comment, review_date)
+VALUES ('57f5241d-850f-40ad-a1ec-df856f7792bb' ,'1be86e05-7a94-4d67-b33a-36f8f7b3d0dc', '4e251b14-79a3-4650-bc4c-ae14d9d78eb7', 4.5,
+        'Great experience, will rent again!', '2021-06-11');

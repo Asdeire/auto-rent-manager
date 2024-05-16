@@ -45,8 +45,8 @@ public class ReviewRepository {
     }
 
     public void create(Review review) {
-        String sql = "INSERT INTO Reviews (user_id, car_id, rating, comment, review_date) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, review.getUserID(), review.getCarID(),
+        String sql = "INSERT INTO Reviews (review_id ,user_id, car_id, rating, comment, review_date) VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, review.getId(), review.getUserID(), review.getCarID(),
                 review.getRating(), review.getComment(), review.getDate());
     }
 }

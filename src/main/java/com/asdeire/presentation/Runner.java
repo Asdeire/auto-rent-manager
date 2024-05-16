@@ -9,9 +9,13 @@ import com.asdeire.presentation.util.SpringFXMLLoader;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 
 public class Runner extends Application {

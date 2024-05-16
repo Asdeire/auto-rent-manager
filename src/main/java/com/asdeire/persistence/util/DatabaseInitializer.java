@@ -24,8 +24,8 @@ public final class DatabaseInitializer {
         try (Connection connection = connectionManager.get();
              Statement statementForDDL = connection.createStatement();
              Statement statementForDML = connection.createStatement()) {
-            statementForDDL.execute(getSQL("db/schema.sql"));
-            statementForDML.execute(getSQL("db/data.sql"));
+            statementForDDL.execute(getSQL("db/ddl.sql"));
+            statementForDML.execute(getSQL("db/dml.sql"));
         } catch (SQLException throwables) {
             throw new RuntimeException(throwables);
         }

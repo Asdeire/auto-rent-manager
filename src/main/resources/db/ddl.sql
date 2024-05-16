@@ -1,8 +1,8 @@
-/*DROP TABLE IF EXISTS rentals;
+DROP TABLE IF EXISTS rentals;
 DROP TABLE IF EXISTS reviews;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS cars;
-DROP TABLE IF EXISTS categories;*/
+DROP TABLE IF EXISTS categories;
 
 
 CREATE TABLE IF NOT EXISTS users (
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS rentals (
     );
 
 CREATE TABLE IF NOT EXISTS reviews (
-    review_id SERIAL PRIMARY KEY,
+    review_id uuid PRIMARY KEY,
     user_id uuid,
     car_id uuid,
     rating DECIMAL(3, 2),
