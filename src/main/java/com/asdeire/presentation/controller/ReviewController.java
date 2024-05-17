@@ -27,7 +27,10 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
-
+/**
+ * Controller class responsible for managing the review submission process for a car.
+ * This class allows users to submit reviews with ratings and comments for a specific car.
+ */
 @Component
 public class ReviewController {
 
@@ -53,20 +56,39 @@ public class ReviewController {
 
     private int rating = 0;
 
+    /**
+     * Constructs a new ReviewController with the specified authentication service and Spring application context.
+     *
+     * @param authenticationService The authentication service.
+     * @param springContext The Spring application context.
+     */
     public ReviewController(AuthService authenticationService, AnnotationConfigApplicationContext springContext) {
         this.authenticationService = authenticationService;
         this.springContext = springContext;
     }
 
+    /**
+     * Sets the current user for the review.
+     *
+     * @param currentUser The current user.
+     */
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Sets the car for which the review is being submitted.
+     *
+     * @param currentCar The current car.
+     */
     public void setCurrentCar(Car currentCar) {
         this.currentCar = currentCar;
         carLabel.setText(STR."Car: \{currentCar.getBrand()} \{currentCar.getModel()}");
     }
 
+    /**
+     * Initializes the review submission form.
+     */
     @FXML
     private void initialize() {
         for (int i = 1; i <= 5; i++) {
@@ -79,11 +101,21 @@ public class ReviewController {
         rootNode.setOnKeyPressed(this::handleKeyPress);
     }
 
+    /**
+     * Sets the rating for the review.
+     *
+     * @param selectedRating The selected rating.
+     */
     private void setRating(int selectedRating) {
         rating = selectedRating;
         updateRatingButtons();
     }
 
+    /**
+     * Submits the review with the given rating and comment.
+     *
+     * @param event The action event.
+     */
     @FXML
     private void submitReview(ActionEvent event) {
         if (rating == 0) {
@@ -106,6 +138,9 @@ public class ReviewController {
         }
     }
 
+    /**
+     * Updates the appearance of the star rating buttons based on the current rating.
+     */
     private void updateRatingButtons() {
         for (int i = 0; i < starButtonsContainer.getChildren().size(); i++) {
             Button starButton = (Button) starButtonsContainer.getChildren().get(i);

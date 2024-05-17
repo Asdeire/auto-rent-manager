@@ -1,8 +1,6 @@
 package com.asdeire.persistence.repository;
 
-import com.asdeire.persistence.dao.CarJdbcDao;
 import com.asdeire.persistence.entities.Car;
-import com.asdeire.persistence.entities.Category;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -14,14 +12,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Repository class for accessing and manipulating car data in the database.
+ */
 @Repository
 public class CarRepository {
     private DataSource dataSource;
 
+    /**
+     * Constructs a new CarRepository with the specified data source.
+     *
+     * @param dataSource The data source used to establish connections to the database.
+     */
     public CarRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Retrieves a car from the database by its ID.
+     *
+     * @param id The ID of the car to retrieve.
+     * @return The car object if found, otherwise null.
+     */
     public Car findById(int id) {
         Car car = null;
         try (Connection connection = dataSource.getConnection();
@@ -47,6 +59,12 @@ public class CarRepository {
         return car;
     }
 
+    /**
+     * Retrieves a list of cars from the database based on the given category ID.
+     *
+     * @param category_id The ID of the category to filter cars by.
+     * @return A list of cars that belong to the specified category.
+     */
     public List<Car> findCarsByCategory(UUID category_id) {
         List<Car> cars = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
@@ -72,6 +90,4 @@ public class CarRepository {
         }
         return cars;
     }
-
-
 }

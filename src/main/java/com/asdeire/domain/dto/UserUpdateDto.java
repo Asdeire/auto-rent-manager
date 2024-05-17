@@ -9,25 +9,46 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.UUID;
 
+/**
+ * A record representing a data transfer object for updating a user.
+ */
 public record UserUpdateDto(
-        @NotNull(message = "Відсутній іденитфікатор користувача")
+        /**
+         * The user's identifier.
+         */
+        @NotNull(message = "User identifier is missing")
         UUID id,
 
-        @Size(min = 6, max = 32, message = "Ім'я користувача має містити від 6 до 32 символів")
+        /**
+         * The username.
+         */
+        @Size(min = 6, max = 32, message = "Username must be between 6 and 32 characters")
         String username,
 
-        @Email(message = "Неправильний формат електронної пошти")
-        @Size(max = 128, message = "Email не повинен перевищувати 128 символів")
+        /**
+         * The user's email.
+         */
+        @Email(message = "Invalid email format")
+        @Size(max = 128, message = "Email must not exceed 128 characters")
         String email,
 
-        @Size(min = 8, max = 72, message = "Пароль повинен містити від 8 до 72 символів")
+        /**
+         * The user's password.
+         */
+        @Size(min = 8, max = 72, message = "Password must be between 8 and 72 characters")
         String password,
 
+        /**
+         * The path to the user's avatar.
+         */
         Path avatar,
 
-        @Past(message = "День народження має бути в минулому")
+        /**
+         * The user's birthday.
+         */
+        @Past(message = "Birthday must be in the past")
         LocalDate birthday
 
-        ) {
+) {
 
 }

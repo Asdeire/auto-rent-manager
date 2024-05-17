@@ -17,12 +17,19 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.sql.Connection;
 import java.sql.SQLException;
 
-
+/**
+ * Entry point of the application responsible for launching the JavaFX GUI and initializing Spring context and database.
+ */
 public class Runner extends Application {
 
     private static AnnotationConfigApplicationContext springContext;
-    private AuthService authService;
 
+    /**
+     * Starts the JavaFX application.
+     *
+     * @param stage The primary stage of the application.
+     * @throws Exception If an error occurs during application startup.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
@@ -35,6 +42,11 @@ public class Runner extends Application {
         stage.show();
     }
 
+    /**
+     * Main method to launch the application.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         springContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         var connectionManager = springContext.getBean(ConnectionManager.class);

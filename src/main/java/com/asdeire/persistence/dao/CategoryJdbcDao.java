@@ -9,13 +9,27 @@ import java.util.UUID;
 
 import com.asdeire.persistence.entities.Category;
 
+/**
+ * Data Access Object (DAO) for accessing Category entities using JDBC.
+ */
 public class CategoryJdbcDao {
     private final DataSource dataSource;
 
+    /**
+     * Constructs a new CategoryJdbcDao with the specified DataSource.
+     *
+     * @param dataSource the data source.
+     */
     public CategoryJdbcDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Finds a category by its ID.
+     *
+     * @param id the ID of the category.
+     * @return the category with the specified ID, or null if not found.
+     */
     public Category findById(UUID id) {
         String sql = "SELECT * FROM categories WHERE category_id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -36,6 +50,11 @@ public class CategoryJdbcDao {
         return null;
     }
 
+    /**
+     * Creates a new category.
+     *
+     * @param category the category to create.
+     */
     public void create(Category category) {
         String sql = "INSERT INTO categories (category_id, name, description) VALUES (?, ?, ?)";
         try (Connection connection = dataSource.getConnection();
@@ -49,6 +68,11 @@ public class CategoryJdbcDao {
         }
     }
 
+    /**
+     * Updates an existing category.
+     *
+     * @param category the category to update.
+     */
     public void update(Category category) {
         String sql = "UPDATE categories SET name = ?, description = ? WHERE category_id = ?";
         try (Connection connection = dataSource.getConnection();
@@ -62,6 +86,11 @@ public class CategoryJdbcDao {
         }
     }
 
+    /**
+     * Deletes a category by its ID.
+     *
+     * @param id the ID of the category to delete.
+     */
     public void delete(UUID id) {
         String sql = "DELETE FROM categories WHERE category_id = ?";
         try (Connection connection = dataSource.getConnection();

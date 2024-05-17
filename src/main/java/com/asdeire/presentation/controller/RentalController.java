@@ -23,7 +23,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
-
+/**
+ * Controller class responsible for managing car rental operations in the application.
+ * This class handles the creation of rental transactions, validation of rental parameters, and interaction with the user interface.
+ */
 @Component
 public class RentalController {
 
@@ -58,19 +61,40 @@ public class RentalController {
     private final AuthService authenticationService;
     private Stage previousStage;
 
+    /**
+     * Constructs a new RentalController with the specified Spring application context and authentication service.
+     *
+     * @param springContext The Spring application context.
+     * @param authenticationService The authentication service.
+     */
     public RentalController(AnnotationConfigApplicationContext springContext, AuthService authenticationService) {
         this.springContext = springContext;
         this.authenticationService = authenticationService;
     }
 
+    /**
+     * Sets the previous stage.
+     *
+     * @param previousStage The previous stage.
+     */
     public void setPreviousStage(Stage previousStage) {
         this.previousStage = previousStage;
     }
 
+    /**
+     * Sets the current user.
+     *
+     * @param currentUser The current user.
+     */
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
+    /**
+     * Initializes the data for the rental process with the given car.
+     *
+     * @param car The car for rental.
+     */
     public void initData(Car car) {
         this.selectedCar = car;
         showCarInfo(car);
@@ -78,6 +102,9 @@ public class RentalController {
         rootNode.setOnKeyPressed(this::handleKeyPress);
     }
 
+    /**
+     * Handles the creation of a rental transaction.
+     */
     @FXML
     private void createRental() {
 
@@ -131,6 +158,13 @@ public class RentalController {
         }
     }
 
+    /**
+     * Calculates the total price for the rental based on the start and end dates.
+     *
+     * @param startDate The start date of the rental.
+     * @param endDate The end date of the rental.
+     * @return The total price for the rental.
+     */
     private Double calculatePrice(LocalDate startDate, LocalDate endDate) {
         Double pricePerDay = selectedCar.getPrice();
 
@@ -146,6 +180,13 @@ public class RentalController {
         }
     }
 
+    /**
+     * Displays an alert with the specified type, title, and message.
+     *
+     * @param alertType The type of the alert.
+     * @param title The title of the alert.
+     * @param message The message of the alert.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -153,6 +194,13 @@ public class RentalController {
         alert.showAndWait();
     }
 
+    /**
+     * Displays a confirmation alert for the successful rental transaction.
+     *
+     * @param stage The stage to display the alert.
+     * @param updatedUser The updated user after the rental transaction.
+     * @throws IOException If an error occurs while opening the review window.
+     */
     private void showConfirmAlert(Stage stage, User updatedUser) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Success");
@@ -168,6 +216,11 @@ public class RentalController {
         }
     }
 
+    /**
+     * Displays car information in the UI labels.
+     *
+     * @param car The car object to display information for.
+     */
     private void showCarInfo(Car car) {
         carModelLabel.setText(STR."Model: \{car.getBrand()} \{car.getModel()}");
         carAvailableLabel.setText(STR."Available: \{car.isAvailability()}");
@@ -176,6 +229,9 @@ public class RentalController {
         carYearLabel.setText(STR."Year: \{car.getYear()}");
     }
 
+    /**
+     * Sets the date limit for selecting dates in the date pickers.
+     */
     private void setDateLimit() {
         // Отримуємо поточну дату
         LocalDate today = LocalDate.now();
@@ -199,6 +255,11 @@ public class RentalController {
         startDatePicker.setValue(today);
     }
 
+    /**
+     * Handles key press events, particularly the ESCAPE key to close the current stage.
+     *
+     * @param event The key event.
+     */
     @FXML
     private void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) {
@@ -207,6 +268,13 @@ public class RentalController {
         }
     }
 
+    /**
+     * Opens the category selection window.
+     *
+     * @param stage The stage to display the category selection window.
+     * @param updatedUser The updated user after the rental transaction.
+     * @throws IOException If an error occurs while opening the category selection window.
+     */
     private void openCategorySelection(Stage stage, User updatedUser) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/categorySelection.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
@@ -223,6 +291,13 @@ public class RentalController {
         stage.show();
     }
 
+    /**
+     * Opens the review window.
+     *
+     * @param stage The stage to display the review window.
+     * @param updatedUser The updated user after the rental transaction.
+     * @throws IOException If an error occurs while opening the review window.
+     */
     private void openReviewWindow(Stage stage, User updatedUser) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/review.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);

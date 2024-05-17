@@ -23,6 +23,9 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for the car selection view.
+ */
 @Component
 public class CarSelectionController {
     @FXML
@@ -48,19 +51,39 @@ public class CarSelectionController {
 
     private Stage previousStage;
 
+    /**
+     * Constructs a new CarSelectionController with the specified Spring application context.
+     *
+     * @param springContext The Spring application context.
+     */
     public CarSelectionController(AnnotationConfigApplicationContext springContext) {
         this.springContext = springContext;
     }
 
+    /**
+     * Sets the previous stage.
+     *
+     * @param previousStage The previous stage.
+     */
     public void setPreviousStage(Stage previousStage) {
         this.previousStage = previousStage;
     }
 
+    /**
+     * Sets the current user.
+     *
+     * @param currentUser The current user.
+     */
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
         updateUI();
     }
 
+    /**
+     * Sets the selected category.
+     *
+     * @param category The selected category.
+     */
     public void setSelectedCategory(Category category) {
         this.selectedCategory = category;
     }
@@ -84,7 +107,7 @@ public class CarSelectionController {
     private void displayCars() {
         if (selectedCategory != null) {
             List<Car> carsInCategory = carSelectionService.getAllCarsByCategoryName(selectedCategory.getId());
-            // Додаємо кнопки машин до VBox
+            // Add car buttons to the flow pane
             for (Car car : carsInCategory) {
                 Button button = new Button(car.getBrand() + " " + car.getModel());
                 button.setMinSize(150, 70);
@@ -135,5 +158,4 @@ public class CarSelectionController {
         alert.setHeaderText(message);
         alert.showAndWait();
     }
-
 }

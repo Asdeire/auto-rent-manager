@@ -24,6 +24,9 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controller for the category selection view.
+ */
 @Component
 public class CategorySelectionController {
 
@@ -48,6 +51,14 @@ public class CategorySelectionController {
 
     private Stage previousStage;
 
+    /**
+     * Constructs a new CategorySelectionController with the specified Spring application context,
+     * category selection service, and car selection controller.
+     *
+     * @param springContext           The Spring application context.
+     * @param categorySelectionService The category selection service.
+     * @param carSelectionController  The car selection controller.
+     */
     public CategorySelectionController(AnnotationConfigApplicationContext springContext,
                                        CategorySelectionService categorySelectionService,
                                        CarSelectionController carSelectionController) {
@@ -56,17 +67,29 @@ public class CategorySelectionController {
         this.carSelectionController = carSelectionController;
     }
 
+    /**
+     * Initializes the controller.
+     */
     @FXML
     private void initialize() {
         rootNode.setOnKeyPressed(this::handleKeyPress);
     }
 
-
+    /**
+     * Sets the current user.
+     *
+     * @param currentUser The current user.
+     */
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
         updateUI();
     }
 
+    /**
+     * Sets the authentication service.
+     *
+     * @param authService The authentication service.
+     */
     public void setAuthService(AuthService authService) {
         this.authService = authService;
     }
@@ -98,6 +121,13 @@ public class CategorySelectionController {
         }
     }
 
+    /**
+     * Handles category selection event.
+     *
+     * @param event    The action event.
+     * @param category The selected category.
+     * @throws IOException if an I/O error occurs.
+     */
     @FXML
     private void handleCategorySelection(ActionEvent event, Category category) throws IOException{
         openCarSelection(category, (Stage) ((Node) event.getSource()).getScene().getWindow());
@@ -111,6 +141,11 @@ public class CategorySelectionController {
         alert.showAndWait();
     }
 
+    /**
+     * Handles key press event.
+     *
+     * @param event The key event.
+     */
     @FXML
     private void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) {
@@ -145,7 +180,7 @@ public class CategorySelectionController {
         stage.setMinHeight(400);
         stage.show();
 
-        // Зберігаємо попереднє вікно
+        // Save the previous window
         this.previousStage = currentStage;
         currentStage.close();
     }

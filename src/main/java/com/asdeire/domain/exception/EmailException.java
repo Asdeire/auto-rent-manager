@@ -1,12 +1,15 @@
 package com.asdeire.domain.exception;
 
-import java.io.Serial;
-
+/**
+ * An exception indicating an issue related to email processing.
+ */
 public class EmailException extends RuntimeException {
 
-    @Serial
-    private static final long serialVersionUID = -5195839463159306456L;
-
+    /**
+     * Constructs a new email exception with the specified detail message.
+     *
+     * @param message the detail message.
+     */
     public EmailException(String message) {
         super(message);
     }

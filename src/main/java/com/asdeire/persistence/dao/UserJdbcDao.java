@@ -8,13 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Data Access Object (DAO) for accessing User entities using JDBC.
+ */
 public class UserJdbcDao {
     private DataSource dataSource;
 
+    /**
+     * Constructs a new UserJdbcDao with the specified DataSource.
+     *
+     * @param dataSource the DataSource to be used for database access.
+     */
     public UserJdbcDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Finds a user by its ID.
+     *
+     * @param id the ID of the user to find.
+     * @return the user if found, otherwise null.
+     */
     public User findById(UUID id) {
         User user = null;
         try (Connection connection = dataSource.getConnection();
@@ -37,6 +51,11 @@ public class UserJdbcDao {
         return user;
     }
 
+    /**
+     * Creates a new user.
+     *
+     * @param user the user to be created.
+     */
     public void create(User user) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO users (user_id, username, email, password, balance) VALUES (?, ?, ?, ?, ?)")) {
@@ -51,6 +70,11 @@ public class UserJdbcDao {
         }
     }
 
+    /**
+     * Updates an existing user.
+     *
+     * @param user the user to be updated.
+     */
     public void update(User user) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE users SET username = ?, email = ?, password = ?, balance = ? WHERE user_id = ?")) {
@@ -65,6 +89,11 @@ public class UserJdbcDao {
         }
     }
 
+    /**
+     * Deletes a user by its ID.
+     *
+     * @param id the ID of the user to delete.
+     */
     public void delete(UUID id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE user_id = ?")) {
@@ -75,6 +104,11 @@ public class UserJdbcDao {
         }
     }
 
+    /**
+     * Retrieves a list of all users.
+     *
+     * @return a list of all users.
+     */
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
@@ -93,5 +127,4 @@ public class UserJdbcDao {
         }
         return users;
     }
-
 }

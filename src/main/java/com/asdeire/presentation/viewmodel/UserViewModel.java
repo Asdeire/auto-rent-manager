@@ -5,15 +5,26 @@ import javafx.beans.property.*;
 import java.util.UUID;
 import java.util.StringJoiner;
 
+/**
+ * View model class representing user information for use in JavaFX applications.
+ */
 public class UserViewModel {
 
     private final ObjectProperty<UUID> id = new SimpleObjectProperty<>();
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty email = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
-
     private final DoubleProperty balance = new SimpleDoubleProperty();
 
+    /**
+     * Constructs a UserViewModel with the specified parameters.
+     *
+     * @param id       The unique identifier of the user.
+     * @param username The username of the user.
+     * @param email    The email address of the user.
+     * @param password The password of the user.
+     * @param balance  The balance of the user.
+     */
     public UserViewModel(UUID id, String username, String email, String password, Double balance) {
         this.id.set(id);
         this.username.set(username);
@@ -70,14 +81,17 @@ public class UserViewModel {
         this.password.set(password);
     }
 
-    public Double getBalance(){
+    public Double getBalance() {
         return balance.get();
     }
 
     public DoubleProperty balanceProperty() {
         return balance;
     }
-    public void setBalance(Double balance){this.balance.set(balance);}
+
+    public void setBalance(Double balance) {
+        this.balance.set(balance);
+    }
 
     @Override
     public String toString() {
@@ -90,4 +104,3 @@ public class UserViewModel {
                 .toString();
     }
 }
-

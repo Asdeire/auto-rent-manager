@@ -1,25 +1,34 @@
 package com.asdeire.persistence.dao;
 
 import com.asdeire.persistence.entities.Car;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ * Data Access Object (DAO) for accessing Car entities using JDBC.
+ */
 public class CarJdbcDao {
     private DataSource dataSource;
 
+    /**
+     * Constructs a new CarJdbcDao with the specified DataSource.
+     *
+     * @param dataSource the DataSource to be used for database access.
+     */
     public CarJdbcDao(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    /**
+     * Finds a car by its ID.
+     *
+     * @param id the ID of the car to find.
+     * @return the car if found, otherwise null.
+     */
     public Car findById(UUID id) {
         Car car = null;
         try (Connection connection = dataSource.getConnection();
@@ -45,6 +54,11 @@ public class CarJdbcDao {
         return car;
     }
 
+    /**
+     * Creates a new car.
+     *
+     * @param car the car to be created.
+     */
     public void create(Car car) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO cars (car_id, brand, model, year, category_id, rating, availability, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
@@ -62,6 +76,11 @@ public class CarJdbcDao {
         }
     }
 
+    /**
+     * Updates an existing car.
+     *
+     * @param car the car to be updated.
+     */
     public void update(Car car) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE cars SET brand = ?, model = ?, year = ?, category_id = ?, rating = ?, availability = ?, price = ? WHERE car_id = ?")) {
@@ -79,6 +98,11 @@ public class CarJdbcDao {
         }
     }
 
+    /**
+     * Deletes a car by its ID.
+     *
+     * @param id the ID of the car to delete.
+     */
     public void delete(UUID id) {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM cars WHERE car_id = ?")) {
@@ -89,6 +113,11 @@ public class CarJdbcDao {
         }
     }
 
+    /**
+     * Retrieves a list of all cars.
+     *
+     * @return a list of all cars.
+     */
     public List<Car> getAll() {
         List<Car> cars = new ArrayList<>();
         String query = "SELECT * FROM cars";
@@ -116,6 +145,12 @@ public class CarJdbcDao {
         return cars;
     }
 
+    /**
+     * Finds cars by their category ID.
+     *
+     * @param categoryId the ID of the category to search for.
+     * @return a list of cars belonging to the specified category.
+     */
     public List<Car> findCarsByCategory(UUID categoryId) {
         List<Car> cars = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
@@ -142,6 +177,12 @@ public class CarJdbcDao {
         return cars;
     }
 
+    /**
+     * Finds cars by their brand.
+     *
+     * @param brand the brand of the cars to search for.
+     * @return a list of cars with the specified brand.
+     */
     public List<Car> findCarsByBrand(String brand) {
         List<Car> cars = new ArrayList<>();
         try (Connection connection = dataSource.getConnection();
@@ -167,5 +208,4 @@ public class CarJdbcDao {
         }
         return cars;
     }
-
 }

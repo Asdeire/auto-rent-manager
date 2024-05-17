@@ -23,6 +23,10 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * Controller class responsible for managing user sign-up functionality.
+ * This class handles user registration, input validation, and navigation to the main application window upon successful registration.
+ */
 @Component
 public class SignUpController {
     @FXML
@@ -39,11 +43,18 @@ public class SignUpController {
     @FXML
     private Button submitButton;
 
-
+    /**
+     * Sets the UserService for user registration.
+     *
+     * @param userService The UserService instance.
+     */
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Initializes the sign-up form.
+     */
     @FXML
     public void initialize() {
         rootNode.setOnKeyPressed(this::handleKeyPress);
@@ -59,12 +70,23 @@ public class SignUpController {
         bindFieldsToViewModel();
     }
 
+    /**
+     * Binds the form fields to the ViewModel properties.
+     */
     private void bindFieldsToViewModel() {
         usernameField.textProperty().bindBidirectional(userViewModel.usernameProperty());
         emailField.textProperty().bindBidirectional(userViewModel.emailProperty());
         passwordField.textProperty().bindBidirectional(userViewModel.passwordProperty());
     }
 
+    /**
+     * Handles the form submission when the submit button is clicked.
+     * Attempts to create a new user and navigate to the main application window upon successful registration.
+     * Displays validation errors in case of input validation failure.
+     *
+     * @param event The action event.
+     * @throws Exception If an error occurs during navigation to the main application window.
+     */
     @FXML
     public void onSubmit(ActionEvent event) throws Exception {
 
@@ -109,6 +131,12 @@ public class SignUpController {
         }
     }
 
+    /**
+     * Handles key press events.
+     * Closes the sign-up window and navigates back to the main application window upon pressing the ESCAPE key.
+     *
+     * @param event The key event.
+     */
     @FXML
     private void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.ESCAPE) {

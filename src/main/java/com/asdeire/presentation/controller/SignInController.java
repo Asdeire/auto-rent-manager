@@ -23,9 +23,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Controller class responsible for managing user sign-in functionality.
+ * This class handles user authentication and navigation to the category selection window upon successful login.
+ */
 @Component
 public class SignInController {
-
 
     @Autowired
     private UserService userService;
@@ -41,16 +44,32 @@ public class SignInController {
     private final AnnotationConfigApplicationContext springContext;
     private User currentUser;
 
+    /**
+     * Constructs a new SignInController with the specified authentication service and Spring application context.
+     *
+     * @param authenticationService The authentication service.
+     * @param springContext         The Spring application context.
+     */
     public SignInController(AuthService authenticationService, AnnotationConfigApplicationContext springContext) {
         this.authenticationService = authenticationService;
         this.springContext = springContext;
     }
 
+    /**
+     * Initializes the sign-in form.
+     */
     @FXML
     public void initialize() {
 
     }
 
+    /**
+     * Handles the login action when the sign-in button is clicked.
+     * Attempts to authenticate the user and navigate to the category selection window upon successful login.
+     *
+     * @param event The action event.
+     * @throws IOException If an error occurs during navigation to the category selection window.
+     */
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
         String username = usernameField.getText();
@@ -74,6 +93,13 @@ public class SignInController {
         }
     }
 
+    /**
+     * Handles the sign-up action when the sign-up link is clicked.
+     * Opens the sign-up window for user registration.
+     *
+     * @param event The action event.
+     * @throws IOException If an error occurs during navigation to the sign-up window.
+     */
     @FXML
     private void onSignUp(ActionEvent event) throws IOException {
         // Відкриття вікна авторизації
@@ -102,6 +128,12 @@ public class SignInController {
         alert.showAndWait();
     }
 
+    /**
+     * Navigates to the category selection window upon successful login.
+     *
+     * @param stage The stage to display the category selection window.
+     * @throws IOException If an error occurs during navigation to the category selection window.
+     */
     private void openCategorySelection(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/categorySelection.fxml"));
         fxmlLoader.setControllerFactory(springContext::getBean);
@@ -117,7 +149,6 @@ public class SignInController {
         stage.setScene(scene);
         stage.show();
     }
-
 
 
 }

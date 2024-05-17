@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+/**
+ * Configuration class for database-related beans.
+ */
 @Configuration
 public class DatabaseConfig {
 
@@ -20,13 +23,17 @@ public class DatabaseConfig {
     @Value("${spring.datasource.password}")
     private String password;
 
+    /**
+     * Creates and configures a DataSource bean.
+     *
+     * @return the configured DataSource.
+     */
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(jdbcUrl);
         config.setUsername(username);
         config.setPassword(password);
-        // Додайте інші налаштування
         return new HikariDataSource(config);
     }
 }
