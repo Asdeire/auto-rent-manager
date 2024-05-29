@@ -1,26 +1,27 @@
 package com.asdeire.presentation.controller;
 
+import atlantafx.base.theme.PrimerDark;
+import atlantafx.base.theme.PrimerLight;
 import com.asdeire.domain.exception.AuthenticationException;
 import com.asdeire.domain.exception.UserAlreadyAuthenticatedException;
 import com.asdeire.domain.service.impl.AuthService;
 import com.asdeire.domain.service.impl.CategorySelectionService;
 import com.asdeire.domain.service.impl.UserService;
 import com.asdeire.persistence.entities.User;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.StyleSheet;
 import java.io.IOException;
 
 /**
@@ -40,9 +41,12 @@ public class SignInController {
     @FXML
     public CheckBox rememberMeCheckBox;
     @FXML
+    private Button themeChangeButton;
+    @FXML
     private TextField usernameField;
     private final AnnotationConfigApplicationContext springContext;
     private User currentUser;
+    private boolean isLightTheme = true;
 
     /**
      * Constructs a new SignInController with the specified authentication service and Spring application context.
@@ -55,12 +59,15 @@ public class SignInController {
         this.springContext = springContext;
     }
 
+    private String theme = new PrimerLight().getUserAgentStylesheet();
+
     /**
      * Initializes the sign-in form.
      */
     @FXML
     public void initialize() {
-
+        Application.setUserAgentStylesheet(theme);
+        themeChangeButton.setText(isLightTheme ? "\uD83C\uDF19" : "☀");
     }
 
     /**
@@ -151,4 +158,21 @@ public class SignInController {
     }
 
 
+    public void handleTheme(ActionEvent event) {
+        if (isLightTheme) {
+            Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
+            setTheme(new PrimerDark().getUserAgentStylesheet());
+            themeChangeButton.setText("☀");
+            isLightTheme = false;
+        } else {
+            Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+            setTheme(new PrimerLight().getUserAgentStylesheet());
+            themeChangeButton.setText("\uD83C\uDF19");
+            isLightTheme = true;
+        }
+    }
+
+    private void setTheme(String userAgentStylesheet) {
+        theme = userAgentStylesheet;
+    }
 }
