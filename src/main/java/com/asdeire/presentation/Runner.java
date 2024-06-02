@@ -33,7 +33,7 @@ public class Runner extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         var fxmlLoader = new SpringFXMLLoader(springContext);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("icons/icon.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         var mainFxmlResource = Runner.class.getResource("view/signIn.fxml");
         Scene scene = new Scene((Parent) fxmlLoader.load(mainFxmlResource), 600, 400);
         stage.setTitle("Authorization");

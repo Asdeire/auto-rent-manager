@@ -34,11 +34,11 @@ public class CarRepository {
      * @param id The ID of the car to retrieve.
      * @return The car object if found, otherwise null.
      */
-    public Car findById(int id) {
+    public Car findById(UUID id) {
         Car car = null;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cars WHERE id = ?")) {
-            statement.setInt(1, id);
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Cars WHERE car_id = ?")) {
+            statement.setObject(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     car = new Car(
@@ -46,7 +46,7 @@ public class CarRepository {
                             resultSet.getString("brand"),
                             resultSet.getString("model"),
                             resultSet.getInt("year"),
-                            (UUID) resultSet.getObject("categoryId"),
+                            (UUID) resultSet.getObject("category_id"),
                             resultSet.getDouble("rating"),
                             resultSet.getBoolean("availability"),
                             resultSet.getDouble("price")

@@ -184,4 +184,25 @@ public class CategorySelectionController {
         this.previousStage = currentStage;
         currentStage.close();
     }
+
+    @FXML
+    private void openHistory(ActionEvent event) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/asdeire/presentation/view/history.fxml"));
+        fxmlLoader.setControllerFactory(springContext::getBean);
+        Parent root = fxmlLoader.load();
+
+        HistoryController historyController = fxmlLoader.getController();
+        historyController.setCurrentUser(currentUser);
+        historyController.setPreviousStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+
+        Scene scene = new Scene(root, 600, 400);
+
+        Stage stage = new Stage();
+        stage.setTitle("History");
+        stage.setScene(scene);
+        stage.show();
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
 }

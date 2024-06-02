@@ -2,6 +2,7 @@ package com.asdeire.persistence.repository;
 
 import com.asdeire.persistence.entities.Review;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -68,5 +70,24 @@ public class ReviewRepository {
         String sql = "INSERT INTO Reviews (review_id ,user_id, car_id, rating, comment, review_date) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, review.getId(), review.getUserID(), review.getCarID(),
                 review.getRating(), review.getComment(), review.getDate());
+    }
+
+    public List<Review> findAllByUserId(UUID userId) {
+        String sql = "SELECT * FROM reviews WHERE user_id = ?";
+        return jdbcTemplate.query(sql, new ReviewRowMapper(), userId);
+    }
+
+    private static class ReviewRowMapper implements RowMapper<Review> {
+        @Override
+        public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Review(
+                    UUID.fromString(rs.getString("review_id")),
+                    UUID.fromString(rs.getString("user_id")),
+                    UUID.fromString(rs.getString("car_id")),
+                    rs.getDouble("rating"),
+                    rs.getString("comment"),
+                    rs.getDate("review_date")
+            );
+        }
     }
 }

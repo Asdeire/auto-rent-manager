@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.asdeire.presentation.controller.CategorySelectionController"
       fx:id="rootNode" spacing="10">
-    <VBox spacing="1.0" styleClass="caption" alignment="TOP_LEFT">
-        <Label fx:id="userLabel" text="User: "/>
-        <Label fx:id="balanceLabel" text="Balance: "/>
-    </VBox>
+    <HBox spacing="10">
+        <VBox spacing="1.0" styleClass="caption" alignment="TOP_LEFT">
+            <Label fx:id="userLabel" text="User: "/>
+            <Label fx:id="balanceLabel" text="Balance: "/>
+        </VBox>
+        <Button onAction="#openHistory" style="-fx-background-color: transparent" text="🕒" alignment="CENTER_RIGHT"/>
+    </HBox>
     <HBox alignment="CENTER">
     <Label text="Category Menu" styleClass="title-1"/>
     </HBox>

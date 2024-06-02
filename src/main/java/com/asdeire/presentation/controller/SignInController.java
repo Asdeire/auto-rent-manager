@@ -1,5 +1,7 @@
 package com.asdeire.presentation.controller;
 
+import atlantafx.base.theme.CupertinoDark;
+import atlantafx.base.theme.CupertinoLight;
 import atlantafx.base.theme.PrimerDark;
 import atlantafx.base.theme.PrimerLight;
 import com.asdeire.domain.exception.AuthenticationException;
@@ -59,7 +61,7 @@ public class SignInController {
         this.springContext = springContext;
     }
 
-    private String theme = new PrimerLight().getUserAgentStylesheet();
+    private String theme = new CupertinoLight().getUserAgentStylesheet();
 
     /**
      * Initializes the sign-in form.
@@ -160,13 +162,13 @@ public class SignInController {
 
     public void handleTheme(ActionEvent event) {
         if (isLightTheme) {
-            Application.setUserAgentStylesheet(new PrimerDark().getUserAgentStylesheet());
-            setTheme(new PrimerDark().getUserAgentStylesheet());
+            Application.setUserAgentStylesheet(new CupertinoDark().getUserAgentStylesheet());
+            setTheme(new CupertinoDark().getUserAgentStylesheet());
             themeChangeButton.setText("☀");
             isLightTheme = false;
         } else {
-            Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-            setTheme(new PrimerLight().getUserAgentStylesheet());
+            Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheet());
+            setTheme(new CupertinoLight().getUserAgentStylesheet());
             themeChangeButton.setText("\uD83C\uDF19");
             isLightTheme = true;
         }

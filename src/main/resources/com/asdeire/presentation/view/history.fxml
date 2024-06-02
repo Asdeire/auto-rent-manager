@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx" fx:id="rootNode"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.asdeire.presentation.controller.HistoryController">
+    <top>
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="reviewsButton" text="Reviews" onAction="#showReviews"/>
+            <Button fx:id="rentalsButton" text="Rentals" onAction="#showRentals"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox style="-fx-padding: 10px;">
+            <TableView fx:id="rentalTableView" visible="false" managed="false">
+                <columns>
+                    <TableColumn fx:id="rentalCarNameColumn" text="Car Name" prefWidth="200"/>
+                    <TableColumn fx:id="startDateColumn" text="Start Date" prefWidth="100"/>
+                    <TableColumn fx:id="endDateColumn" text="End Date" prefWidth="100"/>
+                    <TableColumn fx:id="priceColumn" text="Price" prefWidth="80"/>
+                </columns>
+            </TableView>
+            <TableView fx:id="reviewTableView" visible="false" managed="false">
+                <columns>
+                    <TableColumn fx:id="reviewCarNameColumn" text="Car Name" prefWidth="200"/>
+                    <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="70"/>
+                    <TableColumn fx:id="commentColumn" text="Comment" prefWidth="200"/>
+                    <TableColumn fx:id="reviewDateColumn" text="Review Date" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
